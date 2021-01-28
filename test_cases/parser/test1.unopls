@@ -1,0 +1,67 @@
+boolean assertNonZero(int x) {
+	if(x > 0) {
+		return true;
+	}
+	
+	//error #1
+}
+
+void sayHelloWorld() {
+ 	print("Hello World");
+ }
+
+//error #2
+void sayHelloWorld() {
+	print("Hello World); //error #3
+}
+
+void testPrint() {
+
+	for(int i = 0; i < (5 * 2; i ++) { //error #4
+		print("Petmalu " +x+); //error #5
+	 
+	
+	//error #6 (missing curly brace)
+	
+	return 10; //error #7
+}
+
+void arrayTest(int size_1, int size_2) {
+	int[] simpleArray = new int[size_1];
+	int[] simpleArray = new int[size_2]; //error #8
+	int[] simpleArray_2 = new int[2.0f]; //error #9
+	
+	int complexArraySize = (size_1 * 2) - size_2 - 4;
+	int[] complexArray = new int[complexArraySize];
+	
+	for(int i = 0; i < complexArraySize; i++) {
+		complexArraySize[i] = i;
+	}
+	
+	return complexArray; //error #10
+}
+
+void main() {
+	final int PI = 3.14; //error #11
+	int x = 0, y = 5, z = 13;
+		
+	z = assertNonZero(x); //error #12
+	z += x += 5; //error  #13
+	z +++; //error #14
+	
+	if(z > 0) {
+		print("Computated value: " + someValue()); //error #15
+		print("Computed value: " +someValue);
+	}
+	
+	int z = 0, x = 0; //syntax error #16, #17
+	
+	z * 10; //error #18
+	z = x ++ (y + "10"); //error #19
+	PI = x + y; //error #20
+	
+	sayHelloWorld()(); //error #21
+	print(Finished execution); //error #22
+	
+	
+}
