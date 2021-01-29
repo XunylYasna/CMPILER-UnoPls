@@ -1,4 +1,5 @@
 package antlr;// Generated from UnoPls.g4 by ANTLR 4.9.1
+import analyzer.MainAnalyzer;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
@@ -345,7 +346,12 @@ public class UnoPlsBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitMainDeclaration(UnoPlsParser.MainDeclarationContext ctx) { return visitChildren(ctx); }
+	@Override public T visitMainDeclaration(UnoPlsParser.MainDeclarationContext ctx) {
+		MainAnalyzer mainAnalyzer = new MainAnalyzer();
+		mainAnalyzer.analyze(ctx);
+		return null;
+//		return visitChildren(ctx);
+	}
 	/**
 	 * {@inheritDoc}
 	 *
@@ -450,7 +456,9 @@ public class UnoPlsBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitVariableDeclarator(UnoPlsParser.VariableDeclaratorContext ctx) { return visitChildren(ctx); }
+	@Override public T visitVariableDeclarator(UnoPlsParser.VariableDeclaratorContext ctx) {
+		return visitChildren(ctx);
+	}
 	/**
 	 * {@inheritDoc}
 	 *

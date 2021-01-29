@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class SymbolTableManager {
 
-    private HashMap<String, IScope> classTable;
+    private HashMap<String, IScope> classTable = new HashMap<>();
     private static SymbolTableManager sharedInstance = null;
 
 
@@ -33,5 +33,10 @@ public class SymbolTableManager {
 
     public boolean containsClassScope(String className){
         return this.classTable.containsKey(className);
+    }
+
+    public void resetSymbolTableManager(){
+        sharedInstance = null;
+        classTable = new HashMap<>();
     }
 }

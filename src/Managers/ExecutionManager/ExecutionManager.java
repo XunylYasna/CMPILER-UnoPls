@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class ExecutionManager {
     private static ExecutionManager sharedInstance = null;
     private ArrayList<ICommand> executionList = new ArrayList<ICommand>();
-
+    private boolean foundEntryPoint = false;
 
     //Implementation of singleton
     public static ExecutionManager getInstance(){
@@ -17,10 +17,22 @@ public class ExecutionManager {
 
         return sharedInstance;
     }
+
     private ExecutionManager() {
     }
 
-    public static void initialize() {
-        sharedInstance = new ExecutionManager();
+    public boolean hasFoundEntryPoint() {
+        return foundEntryPoint;
+    }
+
+    public void reportEntryPoint() {
+        foundEntryPoint = true;
+        return;
+    }
+
+    public void resetExecutionManager(){
+        sharedInstance = null;
+        foundEntryPoint = false;
+        executionList = new ArrayList<>();
     }
 }

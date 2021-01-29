@@ -2,7 +2,7 @@
 //
 //import commands.ICommand;
 //import commands.IControlledCommand;
-//import semantics.LocalScope;
+//import analyzer.LocalScope;
 //
 //import java.util.ArrayList;
 //import java.util.LinkedHashMap;
