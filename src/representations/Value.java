@@ -6,20 +6,16 @@ import java.util.Stack;
 public class Value {
 
     private Stack<Object> defaultValue; //this value will no longer change.
-    private Stack<Object> value;
+    private Object value;
     private PrimitiveType primitiveType = PrimitiveType.NOT_YET_IDENTIFIED;
     private boolean finalFlag = false;
 
 
     public Value(Object value, PrimitiveType primitiveType) {
-        if(value == null || checkValueType(value, primitiveType)) {
-            this.value = new Stack<Object>();
-
-            this.value.push(value);
-            this.primitiveType = primitiveType;
-        }
-        else {
-            System.out.println("Value is not appropriate for  " +primitiveType+ "!");
+        this.primitiveType = primitiveType;
+        this.value = value;
+        if(this.primitiveType == PrimitiveType.NOT_YET_IDENTIFIED){
+            System.err.println("Invalid primitive type");
         }
     }
 
@@ -27,20 +23,6 @@ public class Value {
         this.primitiveType = primitiveType;
     }
 
-    public void reset() {
-        this.value = this.defaultValue;
-    }
-
-    public Object popBack() {
-        if (this.value.size() > 2)
-            return this.value.pop();
-
-        return null;
-    }
-
-    public int stackSize() {
-        return value.size();
-    }
 
     /*
      * Marks this value as final if there is a final keyword
@@ -55,21 +37,6 @@ public class Value {
 
     public void setValue(String value) {
 
-        if(this.primitiveType == PrimitiveType.NOT_YET_IDENTIFIED) {
-            System.out.println("Primitive type not yet identified!");
-        }
-        else if(this.primitiveType == PrimitiveType.STRING) {
-            value.replace("\"", "");
-
-            this.value.push(value.replace("\"", ""));
-        }
-        else if(this.primitiveType == PrimitiveType.ARRAY) {
-            System.out.println(this.primitiveType + " is an array. Cannot directly change value.");
-        }
-        else {
-            //attempts to type cast the value
-            this.value.push(this.attemptTypeCast(value));
-        }
     }
 
 
@@ -93,7 +60,7 @@ public class Value {
     }
 
     public Object getValue() {
-        return this.value.peek();
+        return this.value;
     }
 
     public PrimitiveType getPrimitiveType() {

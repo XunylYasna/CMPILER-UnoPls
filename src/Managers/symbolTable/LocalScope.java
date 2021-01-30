@@ -17,6 +17,18 @@ public class LocalScope {
         this.parentScope = parentScope;
     }
 
+    public boolean addVariable(String id, Value value){
+        if(containsVariable(id)){
+            System.err.println("Variable is already declared in the local scope");
+            return false;
+        }
+        else{
+            localVariables.put(id,value);
+            System.out.println("Added variable: " + value.getPrimitiveType().getToken() + " " + id + " " + value.getValue().toString());
+            return true;
+        }
+    }
+
     public boolean containsVariable(String identifier){
         if(this.localVariables != null && this.localVariables.containsKey(identifier)){
             return true;
