@@ -1,4 +1,4 @@
-package Managers.ExecutionManager;
+package Managers.execution;
 
 import commands.ICommand;
 
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class ExecutionManager {
     private static ExecutionManager sharedInstance = null;
-    private ArrayList<ICommand> executionList = new ArrayList<ICommand>();
+    private static ArrayList<ICommand> executionList = new ArrayList<ICommand>();
     private boolean foundEntryPoint = false;
 
     //Implementation of singleton
@@ -34,5 +34,20 @@ public class ExecutionManager {
         sharedInstance = null;
         foundEntryPoint = false;
         executionList = new ArrayList<>();
+    }
+    
+    public void addExecutionList(ICommand command){
+        this.executionList.add(command);
+    }
+    
+    public ArrayList<ICommand> getExecutionList(){
+        return this.executionList;
+    }
+
+    public void execute(){
+        for(ICommand command : executionList){
+//            System.out.println(command);
+            command.execute();
+        }
     }
 }

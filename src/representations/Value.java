@@ -7,14 +7,14 @@ public class Value {
 
     private Stack<Object> defaultValue; //this value will no longer change.
     private Object value;
-    private PrimitiveType primitiveType = PrimitiveType.NOT_YET_IDENTIFIED;
+    private PrimitiveType primitiveType = PrimitiveType.EWAN;
     private boolean finalFlag = false;
 
 
     public Value(Object value, PrimitiveType primitiveType) {
         this.primitiveType = primitiveType;
         this.value = value;
-        if(this.primitiveType == PrimitiveType.NOT_YET_IDENTIFIED){
+        if(this.primitiveType == PrimitiveType.EWAN){
             System.err.println("Invalid primitive type");
         }
     }
@@ -93,7 +93,7 @@ public class Value {
     public static Value createEmptyVariableFromKeywords(String primitiveTypeString) {
 
         //identify primitive type
-        PrimitiveType primitiveType = PrimitiveType.NOT_YET_IDENTIFIED;
+        PrimitiveType primitiveType = PrimitiveType.EWAN;
 
         if(RecognizedKeywords.matchesKeyword(RecognizedKeywords.PRIMITIVE_TYPE_BOOLEAN, primitiveTypeString)) {
             primitiveType = PrimitiveType.BOOL;

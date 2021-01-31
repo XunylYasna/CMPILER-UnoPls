@@ -1,7 +1,7 @@
 //package representations;
 //
 //import commands.ICommand;
-//import commands.IControlledCommand;
+//import commands.controlled.IControlledCommand;
 //import analyzer.LocalScope;
 //
 //import java.util.ArrayList;

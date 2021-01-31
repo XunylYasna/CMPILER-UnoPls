@@ -1,6 +1,8 @@
-package commands;
+package commands.controlled;
 
-public interface IControlledCommand extends ICommand{
+import commands.ICommand;
+
+public interface IControlledCommand extends ICommand {
     public enum ControlTypeEnum {
         CONDITIONAL_IF,
         DO_WHILE_CONTROL,

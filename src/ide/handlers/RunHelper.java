@@ -1,11 +1,12 @@
 package ide.handlers;
 
-import Managers.ExecutionManager.ExecutionManager;
-import Managers.symbolTable.SymbolTableManager;
+import Managers.errors.SemanticErrorManager;
+import Managers.execution.ExecutionManager;
+import Managers.io.OutputManager;
+import Managers.symbols.SymbolTableManager;
 import antlr.UnoPlsBaseVisitor;
 import antlr.UnoPlsLexer;
 import antlr.UnoPlsParser;
-import antlrHelper.UnoVisitor;
 import errors.SyntaxErrorListener;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
@@ -16,7 +17,6 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.fxmisc.richtext.CodeArea;
 
 import javax.swing.*;
@@ -27,8 +27,12 @@ public class RunHelper {
     ArrayList<String> syntaxErrors;
     CodeArea codeArea;
     TextFlow console;
+
     ExecutionManager executionManager;
     SymbolTableManager symbolTableManager;
+    SemanticErrorManager semanticErrorManager;
+    OutputManager outputManager;
+
     SyntaxErrorListener syntaxErrorListener;
 
     public RunHelper(CodeArea codeArea, TextFlow console){
@@ -37,6 +41,8 @@ public class RunHelper {
         this.syntaxErrors = new ArrayList<>();
         executionManager = executionManager.getInstance();
         symbolTableManager = symbolTableManager.getInstance();
+        semanticErrorManager = semanticErrorManager.getInstance();
+        outputManager = outputManager.getInstance();
     }
 
 
@@ -47,6 +53,13 @@ public class RunHelper {
         //Reinstantiate Execution Manager and Symbol Table Manager
         executionManager.resetExecutionManager();
         symbolTableManager.resetSymbolTableManager();
+        semanticErrorManager.resetSemanticErrorManager();
+        outputManager.resetOutputManager();
+
+        symbolTableManager.getInstance();
+        executionManager.getInstance();
+        semanticErrorManager.getInstance();
+        outputManager.getInstance();
 
         System.out.println("Running Program with the following input: ");
         System.out.println(input);
@@ -71,10 +84,35 @@ public class RunHelper {
             System.out.println("DEBUG: " + parserRuleContext.toStringTree(parser));
             UnoPlsBaseVisitor unoVisitor = new UnoPlsBaseVisitor<Void>();
             unoVisitor.visit(parserRuleContext);
-            System.out.println("Compiled Variables and Initialized Function Stack. Ready to execute. ");
-            //If semantic errors exist add errors to logs
 
-            //Else execute
+            //Add Symbol Tokens to the debugger
+
+
+            //If semantic errors exist add errors to logs
+            if(semanticErrorManager.isErrorFlag()){
+                for(String semanticError : semanticErrorManager.getSemanticErrors()){
+                    Text error = new Text(semanticError.replaceAll("_LINEBREAK_", "\n"));
+                    error.setFill(Color.DARKRED);
+                    console.getChildren().add(error);
+                }
+            }
+            //Else execute all commands in the command stack
+            else{
+                System.out.println("Compiled Variables and Initialized Function Stack. Ready to execute.");
+
+                // Add all commands of the main function to the execution manager
+                for(int i = 0; i < symbolTableManager.findFunction("main").getCommandList().size(); i++ ){
+                    executionManager.addExecutionList(symbolTableManager.findFunction("main").getCommandList().get(i));
+                }
+
+                executionManager.execute();
+
+                //Fix mo pa to kasi isang bagsakan yung output mo... pano kung may scan in between
+                for(String outputLogs : outputManager.getOutputLogs()){
+                    Text log = new Text(outputLogs.replaceAll("_LINEBREAK_", "\n"));
+                    console.getChildren().add(log);
+                }
+            }
         }
 
         return;

@@ -1,6 +1,7 @@
 package analyzer;
 
-import Managers.symbolTable.LocalScope;
+import Managers.errors.SemanticErrorManager;
+import Managers.symbols.SymbolTableManager;
 import antlr.UnoPlsParser;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -14,7 +15,6 @@ import representations.Value;
 // Handles all variable declarations, variable initialization, variable re assignment
 
 public class VariableAnalyzer implements ParseTreeListener {
-    LocalScope scope;
     String id;
     PrimitiveType primitiveType = PrimitiveType.fromString("ewan");
     String expression;
@@ -22,8 +22,7 @@ public class VariableAnalyzer implements ParseTreeListener {
     Value value;
 
 
-    public VariableAnalyzer(LocalScope scope){
-        this.scope = scope;
+    public VariableAnalyzer(){
     }
 
     public void analyze(UnoPlsParser.LocalVariableDeclarationContext localVarDecCtx) {
@@ -31,8 +30,15 @@ public class VariableAnalyzer implements ParseTreeListener {
         ParseTreeWalker treeWalker = new ParseTreeWalker();
         treeWalker.walk(this, localVarDecCtx);
         this.value = new Value(expression, primitiveType);
-        scope.addVariable(id,value);
-
+//        System.out.println("created variable " + this.id + " " + this.value.getValue().toString());
+        if(SymbolTableManager.getInstance().getCurrentScope().containsVariableAllScopes(id)){
+            SemanticErrorManager.getInstance().addSemanticError("Semantic Error("+
+                    localVarDecCtx.getStart().getLine()+":"+localVarDecCtx.getStart().getCharPositionInLine()
+            + ") Invalid declaration. Variable '" + id + "' is already declared");
+        }
+        else{
+            SymbolTableManager.getInstance().getCurrentScope().addVariable(id,value);
+        }
     }
 
 
@@ -50,32 +56,30 @@ public class VariableAnalyzer implements ParseTreeListener {
     public void enterEveryRule(ParserRuleContext parserRuleContext) {
 
         //Primitive Types
-        if(parserRuleContext instanceof UnoPlsParser.IntegralTypeContext) {
+        if(parserRuleContext instanceof UnoPlsParser.IntegralTypeContext) { // char, byte, int
             this.primitiveType = PrimitiveType.fromString(parserRuleContext.getText());
         }
         if(parserRuleContext instanceof UnoPlsParser.FloatingPointTypeContext) {
             this.primitiveType = PrimitiveType.FLOAT;
         }
-
         if(parserRuleContext instanceof UnoPlsParser.UnannPrimitiveTypeContext){
             if(parserRuleContext.getText().equals("boolean")){
                 this.primitiveType = PrimitiveType.BOOL;
             }
         }
-
         if(parserRuleContext instanceof UnoPlsParser.UnannClassType_lfno_unannClassOrInterfaceTypeContext){
             //not sure but in order to make sure you can check one level below to check if identifier
             if(parserRuleContext.getChildCount() == 1){
                 this.primitiveType = PrimitiveType.STRING;
             }
-
         }
 
-
+        // Get variable name
         if(parserRuleContext instanceof UnoPlsParser.IdentifierContext) {
             this.id = parserRuleContext.getText();
         }
 
+        // Get variable value
         if(parserRuleContext instanceof UnoPlsParser.ExpressionContext) {
             this.expression = parserRuleContext.getText();
         }

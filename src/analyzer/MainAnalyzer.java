@@ -1,17 +1,15 @@
 package analyzer;
 
-import Managers.ExecutionManager.ExecutionManager;
-import Managers.symbolTable.ClassScope;
-import Managers.symbolTable.IScope;
-import Managers.symbolTable.LocalScope;
-import Managers.symbolTable.SymbolTableManager;
+import Managers.execution.ExecutionManager;
+import Managers.symbols.SymbolTableManager;
 import antlr.UnoPlsParser;
-import errors.SyntaxErrorListener;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import representations.PrimitiveType;
+import representations.UnoFunction;
 
 
 // (mainDeclaration) - Handles finding the main class, checking for duplicate main classes
@@ -25,12 +23,14 @@ public class MainAnalyzer implements ParseTreeListener {
         if(!ExecutionManager.getInstance().hasFoundEntryPoint()) {
             ExecutionManager.getInstance().reportEntryPoint();
 
-            ClassScope classScope = new ClassScope("main"); //Create a class scope for main
-            SymbolTableManager.getInstance().addClassScope("main", classScope);
+            //Create a main function
+            UnoFunction function = new UnoFunction("main", null, PrimitiveType.VOID);
+            SymbolTableManager.getInstance().addFunction("main", function);
+            SymbolTableManager.getInstance().setCurrentFunction(function);
+            SymbolTableManager.getInstance().setCurrentScope(function.getFunctionScope());
 
             ParseTreeWalker treeWalker = new ParseTreeWalker();
             treeWalker.walk(this, ctx);
-//            System.out.println("main analyzer");
         }
         else {
             System.err.println("Duplicate Main ");
@@ -51,7 +51,7 @@ public class MainAnalyzer implements ParseTreeListener {
     public void enterEveryRule(ParserRuleContext parserRuleContext) {
         if(parserRuleContext instanceof UnoPlsParser.MethodBodyContext) {
             UnoPlsParser.BlockContext blockCtx = ((UnoPlsParser.MethodBodyContext) parserRuleContext).block();
-            BlockAnalyzer blockAnalyzer = new BlockAnalyzer("main");
+            BlockAnalyzer blockAnalyzer = new BlockAnalyzer();
             blockAnalyzer.analyze(blockCtx);
         }
     }

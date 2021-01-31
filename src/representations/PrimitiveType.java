@@ -2,13 +2,14 @@ package representations;
 
 
 public enum PrimitiveType {
-    NOT_YET_IDENTIFIED("ewan"),
+    EWAN("ewan"),
     ARRAY("array"),
     BOOL("boolean"),
     CHAR("char"),
     INT("int"),
     FLOAT("float"),
-    STRING("string");
+    STRING("string"),
+    VOID("void");
 
     private String token;
 
@@ -26,6 +27,6 @@ public enum PrimitiveType {
                 return t;
             }
         }
-        return null;
+        return PrimitiveType.EWAN;
     }
 }
