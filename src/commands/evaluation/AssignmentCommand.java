@@ -27,6 +27,7 @@ public class AssignmentCommand implements ICommand {
         EvaluateCommand evaluateCommand = new EvaluateCommand(this.rightHand);
         evaluateCommand.execute();
         Object result = evaluateCommand.evaluateExpression();
+        // Feeling ko may chance na madapa to dahil gumagawa ka ng bagong variable not technically reassigning pre dun sa type shit
         this.value = new Value(result, assignmentScope.findVariableValueAllScopes(leftHand.getText()).getPrimitiveType());
         assignmentScope.reAssignVariable(leftHand.getText(), this.value);
     }

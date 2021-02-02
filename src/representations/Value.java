@@ -15,7 +15,7 @@ public class Value {
         this.primitiveType = primitiveType;
         this.value = value;
         if(this.primitiveType == PrimitiveType.EWAN){
-            System.err.println("Invalid primitive type");
+//            System.err.println("Invalid primitive type");
         }
     }
 
@@ -35,8 +35,9 @@ public class Value {
         return this.finalFlag;
     }
 
-    public void setValue(String value) {
-
+    public void setValue(Object value) {
+        //TODO error checking for type mismatch
+        this.value = value;
     }
 
 

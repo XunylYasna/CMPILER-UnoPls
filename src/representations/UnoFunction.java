@@ -4,19 +4,17 @@ import Managers.symbols.Scope;
 import Managers.symbols.SymbolTableManager;
 import commands.ICommand;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class UnoFunction{
     private String functionName;
-    private HashMap<String, Value> parameters;
+    private LinkedHashMap<String, Value> parameters;
     private ArrayList<ICommand> commandList;
     private Scope functionScope;
     private PrimitiveType returnType = PrimitiveType.VOID;
     private Value returnValue = null;
 
-    public UnoFunction(String functionName, HashMap<String, Value> parameters, PrimitiveType returnType){
+    public UnoFunction(String functionName, LinkedHashMap<String, Value> parameters, PrimitiveType returnType){
         this.functionName = functionName;
         this.parameters = parameters;
         this.returnType = returnType;
@@ -34,9 +32,13 @@ public class UnoFunction{
 
     //Parameter Related
 
-    public void initParameters(HashMap<String, Value> parameters){
-        //Add error checking if type mismatch
+    public void initParameters(LinkedHashMap<String, Value> parameters){
         this.parameters = parameters;
+        // Add the parameters to the function scope (local variables)
+        for(int i = 0; i < this.parameters.size(); i++) {
+            Value value = (Value) this.parameters.values().toArray()[i];
+            this.functionScope.addVariable((String) this.parameters.keySet().toArray()[i], value);
+        }
     }
 
     public void setParameters(ArrayList<Value> parameterValue){
@@ -44,11 +46,17 @@ public class UnoFunction{
         if(parameterValue.size() != this.parameters.size()){
             System.err.println("Mismatch number of parameter type");
         }
+        //Reassign the parameters to locals scope so that they have not null values
+        else{
+            for(int i = 0; i < this.parameters.size(); i++) {
+                Value value = (Value) this.parameters.values().toArray()[i];
+                //Error checking of type mismatch is done when setting the value in the value function
+                value.setValue(parameterValue.get(i).getValue());
+                this.functionScope.reAssignVariable((String) this.parameters.keySet().toArray()[i], value);
+            }
 
-        //Add the parameters to locals scope
-//        for (Map.Entry<String,Value> variable: this.parameters.entrySet()) {
-//            functionScope.addVariable(variable.getKey(), variable.getValue());
-//        }
+
+        }
     }
 
     // Scope Related

@@ -2,16 +2,19 @@ package commands.simple;
 
 import Managers.symbols.SymbolTableManager;
 import antlr.UnoPlsParser;
+import commands.EvaluateCommand;
 import commands.ICommand;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import representations.PrimitiveType;
 import representations.UnoFunction;
 import representations.Value;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class FunctionCallCommand implements ICommand, ParseTreeListener {
 
@@ -68,7 +71,12 @@ public class FunctionCallCommand implements ICommand, ParseTreeListener {
     public void enterEveryRule(ParserRuleContext parserRuleContext) {
         // if the function call encounters an expression, the expression is counted as a parameter of the function
         if(parserRuleContext instanceof UnoPlsParser.ExpressionContext){
-            
+//            Value parameterValue = new EvaluateCommand((UnoPlsParser.ExpressionContext) parserRuleContext);
+            EvaluateCommand evaluateCommand = new EvaluateCommand((UnoPlsParser.ExpressionContext) parserRuleContext);
+            evaluateCommand.execute();
+
+            Value tempValue = new Value(evaluateCommand.evaluateExpression(), PrimitiveType.EWAN);
+            parameterValue.add(tempValue);
         }
     }
 

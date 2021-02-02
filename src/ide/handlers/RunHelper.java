@@ -110,9 +110,9 @@ public class RunHelper {
 
                 //Fix mo pa to kasi isang bagsakan yung output mo... pano kung may scan in between
                 for(String outputLogs : outputManager.getOutputLogs()){
-                    System.out.println("output: " + outputLogs);
-//                    Text log = new Text(outputLogs.replaceAll("_LINEBREAK_", "\n"));
-//                    console.getChildren().add(log);
+//                    System.out.println("output: " + outputLogs);
+                    Text log = new Text(outputLogs.replaceAll("_LINEBREAK_", "\n"));
+                    console.getChildren().add(log);
                 }
             }
         }

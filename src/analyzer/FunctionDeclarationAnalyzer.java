@@ -12,15 +12,16 @@ import representations.UnoFunction;
 import representations.Value;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class FunctionDeclarationAnalyzer implements ParseTreeListener {
 
     PrimitiveType resultType;
     String functionName;
-    HashMap<String, Value> parameters;
+    LinkedHashMap<String, Value> parameters;
 
     public FunctionDeclarationAnalyzer(){
-        parameters = new HashMap<>();
+        parameters = new LinkedHashMap<>();
     }
 
     public void analyze(UnoPlsParser.FunctionDeclarationContext functionDeclarationContext){
@@ -43,8 +44,6 @@ public class FunctionDeclarationAnalyzer implements ParseTreeListener {
         ParseTreeWalker treeWalker = new ParseTreeWalker();
         treeWalker.walk(this, functionDeclarationContext);
 
-        // After the walk, the local variables of the scope's function will contain the parameters
-        parameters = SymbolTableManager.getInstance().getCurrentFunction().getFunctionScope().getLocalVariables();
         // Set the parameters in order to reassign them at function call
         unoFunction.initParameters(parameters);
 
@@ -63,10 +62,12 @@ public class FunctionDeclarationAnalyzer implements ParseTreeListener {
     @Override
     public void enterEveryRule(ParserRuleContext parserRuleContext) {
 //        if(parserRuleContext instanceof )
+        // After the walk, the local variables of the scope's function will contain the parameters
         if(parserRuleContext instanceof UnoPlsParser.FormalParameterContext){
             UnoPlsParser.FormalParameterContext formalParameterContext = (UnoPlsParser.FormalParameterContext) parserRuleContext;
             VariableAnalyzer variableAnalyzer = new VariableAnalyzer();
-            variableAnalyzer.analyze(formalParameterContext);
+            variableAnalyzer.analyzeParameter(formalParameterContext);
+            this.parameters.put(variableAnalyzer.getId(), variableAnalyzer.getValue());
         }
 
         if(parserRuleContext instanceof UnoPlsParser.MethodBodyContext) {
