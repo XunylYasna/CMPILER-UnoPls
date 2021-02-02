@@ -27,7 +27,6 @@ public class EvaluateCommand implements ICommand, ParseTreeListener {
 
     public EvaluateCommand(UnoPlsParser.ExpressionContext expressionContext){
         this.expressionContext = expressionContext;
-        this.execute();
         this.hasError = false;
     }
 
@@ -127,7 +126,9 @@ public class EvaluateCommand implements ICommand, ParseTreeListener {
 
         if(parserRuleContext instanceof UnoPlsParser.IdentifierContext){
             if(SymbolTableManager.getInstance().getCurrentScope().containsVariableAllScopes(parserRuleContext.getText())){
-                Value variable = SymbolTableManager.getInstance().getCurrentScope().findVariableValueAllScopes(parserRuleContext.getText());
+                System.out.println(this.modifiedExpression + " evaluate " + parserRuleContext.getText() + " " + SymbolTableManager.getInstance().getCurrentFunction().getFunctionName());
+                Value variable = SymbolTableManager.getInstance().getCurrentFunction().getFunctionScope().findVariableValueAllScopes(parserRuleContext.getText());
+                System.out.println(variable.getValue());
                 this.modifiedExpression = this.modifiedExpression.replace(parserRuleContext.getText(), (CharSequence) variable.getValue());
             }
             else{

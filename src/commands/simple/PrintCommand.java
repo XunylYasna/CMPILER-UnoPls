@@ -1,6 +1,7 @@
 package commands.simple;
 
 import Managers.io.OutputManager;
+import Managers.symbols.SymbolTableManager;
 import antlr.UnoPlsParser;
 import commands.EvaluateCommand;
 import commands.ICommand;
@@ -26,7 +27,10 @@ public class PrintCommand implements ICommand, ParseTreeListener {
     public void execute() {
         ParseTreeWalker treeWalker = new ParseTreeWalker();
         treeWalker.walk(this, this.functionCallerContext);
-        this.evaluatedExpression = (String) new EvaluateCommand(expressionContext).evaluateExpression();
+        EvaluateCommand evaluateCommand = new EvaluateCommand(expressionContext);
+        evaluateCommand.execute();
+        this.evaluatedExpression = (String) evaluateCommand.evaluateExpression();
+        System.out.println("Executing Print Command in function: " + SymbolTableManager.getInstance().getCurrentFunction().getFunctionName());
         OutputManager.getInstance().addoutputLog(evaluatedExpression);
     }
 

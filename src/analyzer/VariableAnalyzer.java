@@ -25,6 +25,7 @@ public class VariableAnalyzer implements ParseTreeListener {
     public VariableAnalyzer(){
     }
 
+
     public void analyze(UnoPlsParser.LocalVariableDeclarationContext localVarDecCtx) {
         //Walk the parse tree to get necessary values
         ParseTreeWalker treeWalker = new ParseTreeWalker();
@@ -40,6 +41,15 @@ public class VariableAnalyzer implements ParseTreeListener {
             SymbolTableManager.getInstance().getCurrentScope().addVariable(id,value);
         }
     }
+
+    // For analyzing variables inside a parameter, actually feel ko medyo same siya
+    public void analyze(UnoPlsParser.FormalParameterContext formalParameterContext){
+        ParseTreeWalker treeWalker = new ParseTreeWalker();
+        treeWalker.walk(this, formalParameterContext);
+        this.value = new Value(expression, primitiveType);
+        SymbolTableManager.getInstance().getCurrentFunction().getFunctionScope().addVariable(id, value);
+    }
+
 
 
     @Override

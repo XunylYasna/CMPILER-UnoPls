@@ -4,6 +4,7 @@ import Managers.execution.ExecutionManager;
 import Managers.symbols.Scope;
 import Managers.symbols.SymbolTableManager;
 import antlr.UnoPlsParser;
+import commands.simple.FunctionCallCommand;
 import commands.simple.PrintCommand;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -50,8 +51,8 @@ public class BlockAnalyzer implements ParseTreeListener {
             statementAnalyzer.analyze(statementContext);
         }
         else if(parserRuleContext instanceof UnoPlsParser.FunctionCallerContext){
-            System.out.println("Function Caller - ");
-            System.out.println(parserRuleContext.getText());
+            System.out.println("Function call: " + parserRuleContext.getText() + " in " + SymbolTableManager.getInstance().getCurrentFunction().getFunctionName());
+            System.out.println();
 
 //            ((UnoPlsParser.FunctionCallerContext) parserRuleContext).identifier();
             if(parserRuleContext.getText().substring(0,6).equals("print(")){
@@ -60,9 +61,11 @@ public class BlockAnalyzer implements ParseTreeListener {
             else if (parserRuleContext.getText().substring(0,5).equals("scan(")){
 
             }
-            else{
+        }
+        else if(parserRuleContext instanceof UnoPlsParser.MethodInvocationContext){
+            //add funtion call command
+            SymbolTableManager.getInstance().getCurrentFunction().addCommand(new FunctionCallCommand((UnoPlsParser.MethodInvocationContext) parserRuleContext));
 
-            }
         }
 
         else{

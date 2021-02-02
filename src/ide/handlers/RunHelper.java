@@ -69,8 +69,11 @@ public class RunHelper {
         // Get generated parse tree
         UnoPlsParser parser = getParser(input);
 
+        ParserRuleContext parserRuleContext = parser.compilationUnit();
+        System.out.println("DEBUG: " + parserRuleContext.toStringTree(parser));
 
-        if(SyntaxErrorListener.syntaxErrFlag) {
+
+        if(this.syntaxErrorListener.syntaxErrFlag) {
             //If there are syntax errors, add errors to the log
             for(int i = 0; i < syntaxErrorListener.getSyntaxErrors().size(); i++){
                 Text error = new Text(syntaxErrorListener.getSyntaxErrors().get(i).replaceAll("_LINEBREAK_", "\n"));
@@ -80,8 +83,6 @@ public class RunHelper {
         }
         else{
             //Check for semantic errors and fill up SymbolTable, CommandTable
-            ParserRuleContext parserRuleContext = parser.compilationUnit();
-            System.out.println("DEBUG: " + parserRuleContext.toStringTree(parser));
             UnoPlsBaseVisitor unoVisitor = new UnoPlsBaseVisitor<Void>();
             unoVisitor.visit(parserRuleContext);
 
@@ -109,8 +110,9 @@ public class RunHelper {
 
                 //Fix mo pa to kasi isang bagsakan yung output mo... pano kung may scan in between
                 for(String outputLogs : outputManager.getOutputLogs()){
-                    Text log = new Text(outputLogs.replaceAll("_LINEBREAK_", "\n"));
-                    console.getChildren().add(log);
+                    System.out.println("output: " + outputLogs);
+//                    Text log = new Text(outputLogs.replaceAll("_LINEBREAK_", "\n"));
+//                    console.getChildren().add(log);
                 }
             }
         }
@@ -148,9 +150,8 @@ public class RunHelper {
         UnoPlsParser parser = new UnoPlsParser(tokens);
         // Syntax Error Handling
         parser.removeErrorListeners();
-        this.syntaxErrorListener = new SyntaxErrorListener(this.syntaxErrors);
-        parser.addErrorListener(syntaxErrorListener);
-
+        this.syntaxErrorListener = new SyntaxErrorListener();
+        parser.addErrorListener(this.syntaxErrorListener);
 
         return parser;
     }

@@ -5,6 +5,7 @@ import Managers.symbols.SymbolTableManager;
 import antlr.UnoPlsParser;
 import commands.EvaluateCommand;
 import commands.ICommand;
+import representations.UnoFunction;
 import representations.Value;
 
 public class AssignmentCommand implements ICommand {
@@ -17,17 +18,16 @@ public class AssignmentCommand implements ICommand {
     public AssignmentCommand(UnoPlsParser.LeftHandSideContext leftHand, UnoPlsParser.ExpressionContext rightHand) {
         this.leftHand = leftHand;
         this.rightHand = rightHand;
-
         assignmentScope = SymbolTableManager.getInstance().getCurrentScope();
-        EvaluateCommand evaluateCommand = new EvaluateCommand(this.rightHand);
-        evaluateCommand.execute();
-        Object result = evaluateCommand.evaluateExpression();
-        value = new Value(result, assignmentScope.findVariableValueAllScopes(leftHand.getText()).getPrimitiveType());
-
     }
 
     @Override
     public void execute() {
+        System.out.println("Reassigning variable " + leftHand.getText() + " in " + SymbolTableManager.getInstance().getCurrentFunction().getFunctionName());
+        EvaluateCommand evaluateCommand = new EvaluateCommand(this.rightHand);
+        evaluateCommand.execute();
+        Object result = evaluateCommand.evaluateExpression();
+        this.value = new Value(result, assignmentScope.findVariableValueAllScopes(leftHand.getText()).getPrimitiveType());
         assignmentScope.reAssignVariable(leftHand.getText(), this.value);
     }
 }

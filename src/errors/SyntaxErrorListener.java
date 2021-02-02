@@ -16,13 +16,13 @@ import org.antlr.v4.runtime.Token;
 
 public class SyntaxErrorListener extends BaseErrorListener{
 
-    public static boolean syntaxErrFlag = false;
+    public boolean syntaxErrFlag = false;
     private ArrayList<String> syntaxErrors;
-    private static int syntaxErrLine = -69;
+    private int syntaxErrLine = -69;
 
 
-    public SyntaxErrorListener(ArrayList<String> syntaxErrors) {
-        this.syntaxErrors = syntaxErrors;
+    public SyntaxErrorListener() {
+        this.syntaxErrors = new ArrayList<>();
     }
 
     @Override
@@ -72,6 +72,10 @@ public class SyntaxErrorListener extends BaseErrorListener{
     }
 
     public ArrayList<String> getSyntaxErrors() {
-        return syntaxErrors;
+        return this.syntaxErrors;
+    }
+
+    public boolean isSyntaxErrFlag(){
+        return this.syntaxErrFlag;
     }
 }
