@@ -1,5 +1,6 @@
 package commands.simple;
 
+import Managers.symbols.SymbolTableManager;
 import antlr.UnoPlsParser;
 import commands.EvaluateCommand;
 import commands.ICommand;
@@ -17,13 +18,14 @@ public class ReturnCommand implements ICommand {
 
     @Override
     public void execute() {
+        SymbolTableManager.getInstance().setCurrentFunction(unoFunction);
+        SymbolTableManager.getInstance().setCurrentScope(unoFunction.getFunctionScope());
 
         EvaluateCommand evaluationCommand = new EvaluateCommand(this.expressionContext);
         evaluationCommand.execute();
         Object value = evaluationCommand.evaluateExpression();
         Value functionReturn = unoFunction.getReturnValue();
         functionReturn.setValue(value);
-
         System.out.println("Return " + (String) functionReturn.getValue());
     }
 }

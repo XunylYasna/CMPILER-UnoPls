@@ -1,0 +1,11 @@
+func int add(int x, int y){
+   return x + y;
+}
+
+main(){
+ int x = 5;
+ int y = 7;
+ print(x+y);
+ int z = add(5,4);
+ print(z);
+}

@@ -5,6 +5,7 @@ import Managers.errors.SemanticErrorManager;
 import Managers.symbols.SymbolTableManager;
 import antlr.UnoPlsParser;
 import com.udojava.evalex.Expression;
+import commands.simple.FunctionCallCommand;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
@@ -22,12 +23,13 @@ public class EvaluateCommand implements ICommand, ParseTreeListener {
     private String modifiedExpression;
     private boolean isNumeric;
     private boolean hasError;
+    private boolean isFunction;
 
     private Object result;
-
     public EvaluateCommand(UnoPlsParser.ExpressionContext expressionContext){
         this.expressionContext = expressionContext;
         this.hasError = false;
+        this.isFunction = false;
     }
 
     @Override
@@ -124,11 +126,13 @@ public class EvaluateCommand implements ICommand, ParseTreeListener {
             //this.result = parserRuleContext.getText(); do nothing
         }
 
-        if(parserRuleContext instanceof UnoPlsParser.MethodInvocation_lfno_primaryContext){
-
+        else if(parserRuleContext instanceof UnoPlsParser.MethodInvocation_lfno_primaryContext){
+            this.isFunction = true;
+            this.modifiedExpression = (String) new FunctionCallCommand((UnoPlsParser.MethodInvocation_lfno_primaryContext)parserRuleContext).evaluateFunctionCall().getValue();
         }
 
-        if(parserRuleContext instanceof UnoPlsParser.IdentifierContext){
+        else if(parserRuleContext instanceof UnoPlsParser.IdentifierContext && !isFunction){
+            System.out.println(SymbolTableManager.getInstance().getCurrentScope().getId());
             if(SymbolTableManager.getInstance().getCurrentScope().containsVariableAllScopes(parserRuleContext.getText())){
                 System.out.println(this.modifiedExpression + " evaluate " + parserRuleContext.getText() + " " + SymbolTableManager.getInstance().getCurrentFunction().getFunctionName());
                 Value variable = SymbolTableManager.getInstance().getCurrentFunction().getFunctionScope().findVariableValueAllScopes(parserRuleContext.getText());

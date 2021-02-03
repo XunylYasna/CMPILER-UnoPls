@@ -18,6 +18,7 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.fxmisc.richtext.CodeArea;
+import representations.UnoFunction;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -100,10 +101,12 @@ public class RunHelper {
             //Else execute all commands in the command stack
             else{
                 System.out.println("Compiled Variables and Initialized Function Stack. Ready to execute.");
-
+                UnoFunction mainFunction = SymbolTableManager.getInstance().findFunction("main");
+                SymbolTableManager.getInstance().setCurrentFunction(mainFunction);
+                SymbolTableManager.getInstance().setCurrentScope(mainFunction.getFunctionScope());
                 // Add all commands of the main function to the execution manager
-                for(int i = 0; i < symbolTableManager.findFunction("main").getCommandList().size(); i++ ){
-                    executionManager.addExecutionList(symbolTableManager.findFunction("main").getCommandList().get(i));
+                for(int i = 0; i < mainFunction.getCommandList().size(); i++ ){
+                    executionManager.addExecutionList(mainFunction.getCommandList().get(i));
                 }
 
                 executionManager.execute();

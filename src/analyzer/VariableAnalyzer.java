@@ -3,6 +3,7 @@ package analyzer;
 import Managers.errors.SemanticErrorManager;
 import Managers.symbols.SymbolTableManager;
 import antlr.UnoPlsParser;
+import commands.EvaluateCommand;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
@@ -17,6 +18,7 @@ import representations.Value;
 public class VariableAnalyzer implements ParseTreeListener {
     String id;
     PrimitiveType primitiveType = PrimitiveType.fromString("ewan");
+    UnoPlsParser.ExpressionContext variableExpression;
     String expression;
 
     Value value;
@@ -30,8 +32,13 @@ public class VariableAnalyzer implements ParseTreeListener {
         //Walk the parse tree to get necessary values
         ParseTreeWalker treeWalker = new ParseTreeWalker();
         treeWalker.walk(this, localVarDecCtx);
-        this.value = new Value(expression, primitiveType);
-//        System.out.println("created variable " + this.id + " " + this.value.getValue().toString());
+
+        EvaluateCommand evaluateCommand = new EvaluateCommand(variableExpression);
+        evaluateCommand.execute();
+        this.value = new Value(evaluateCommand.evaluateExpression(), primitiveType);
+
+        System.out.println("created variable " + this.id + " " + this.value.getValue().toString());
+
         if(SymbolTableManager.getInstance().getCurrentScope().containsVariableAllScopes(id)){
             SemanticErrorManager.getInstance().addSemanticError("Semantic Error("+
                     localVarDecCtx.getStart().getLine()+":"+localVarDecCtx.getStart().getCharPositionInLine()
@@ -92,14 +99,21 @@ public class VariableAnalyzer implements ParseTreeListener {
         }
 
         // Get variable name
-        if(parserRuleContext instanceof UnoPlsParser.IdentifierContext) {
+        if(parserRuleContext instanceof UnoPlsParser.VariableDeclaratorIdContext) {
             this.id = parserRuleContext.getText();
         }
+//        if(parserRuleContext instanceof UnoPlsParser.IdentifierContext) {
+//            this.id = parserRuleContext.getText();
+//        }
 
         // Get variable value
-        if(parserRuleContext instanceof UnoPlsParser.ExpressionContext) {
+        if(parserRuleContext instanceof UnoPlsParser.VariableInitializerContext) {
+            this.variableExpression = ((UnoPlsParser.VariableInitializerContext) parserRuleContext).expression();
             this.expression = parserRuleContext.getText();
         }
+//        if(parserRuleContext instanceof UnoPlsParser.ExpressionContext) {
+//            this.expression = parserRuleContext.getText();
+//        }
     }
 
     @Override
