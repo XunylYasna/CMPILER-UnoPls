@@ -1,0 +1,32 @@
+func void hello(int x){
+ if(x<5){
+  print("hi");
+  if(x==2){
+   print("magic2");
+  }
+  else if(x==3){
+   print("magic3");
+  }
+  else{
+   print("magicTalaga");
+  }
+ }
+ else{
+  if(x==100){
+   print("hello");
+  }
+  else{
+   print("magic");
+  }
+ }
+}
+
+main(){
+ int x = 5;
+ char t = 'c';
+ boolean f = 12;
+ float hello = 4.20;
+ String roar = "rawr";
+ print(5+5);
+ hello(2);
+}

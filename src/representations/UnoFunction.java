@@ -11,8 +11,8 @@ public class UnoFunction{
     private LinkedHashMap<String, Value> parameters;
     private ArrayList<ICommand> commandList;
     private Scope functionScope;
-    private PrimitiveType returnType = PrimitiveType.VOID;
-    private Value returnValue = null;
+    private PrimitiveType returnType;
+    private Value returnValue;
 
     public UnoFunction(String functionName, LinkedHashMap<String, Value> parameters, PrimitiveType returnType){
         this.functionName = functionName;
@@ -20,6 +20,7 @@ public class UnoFunction{
         this.returnType = returnType;
         this.commandList = new ArrayList<>();
         this.functionScope = new Scope(functionName+"-scope",null);
+        this.returnValue = new Value(null, returnType);
         SymbolTableManager.getInstance().setCurrentScope(functionScope);
     }
 

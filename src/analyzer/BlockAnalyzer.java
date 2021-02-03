@@ -37,6 +37,7 @@ public class BlockAnalyzer implements ParseTreeListener {
     public void visitTerminal(TerminalNode terminalNode) {
 //        System.out.println(terminalNode.getSymbol() + " " + terminalNode.getSymbol().getText() + " " + UnoPlsParser.ELSE);
         if(terminalNode.getSymbol().getText().equals("else")){
+            System.out.println("Entered negative");
             CommandControlManager.getInstance().enteredNegative();
         }
     }
@@ -63,7 +64,7 @@ public class BlockAnalyzer implements ParseTreeListener {
 //            System.out.println("Function call: " + parserRuleContext.getText() + " in " + SymbolTableManager.getInstance().getCurrentFunction().getFunctionName());
 //            ((UnoPlsParser.FunctionCallerContext) parserRuleContext).identifier();
             if(parserRuleContext.getText().substring(0,6).equals("print(")){
-                addCommand(new PrintCommand((UnoPlsParser.FunctionCallerContext) parserRuleContext), "Print command in ", false);
+                addCommand(new PrintCommand((UnoPlsParser.FunctionCallerContext) parserRuleContext), "Print command in ");
 //                SymbolTableManager.getInstance().getCurrentFunction().addCommand(new PrintCommand((UnoPlsParser.FunctionCallerContext) parserRuleContext));
             }
             else if (parserRuleContext.getText().substring(0,5).equals("scan(")){
@@ -72,7 +73,7 @@ public class BlockAnalyzer implements ParseTreeListener {
         }
         else if(parserRuleContext instanceof UnoPlsParser.MethodInvocationContext){
             //add funtion call command to function
-            addCommand(new FunctionCallCommand((UnoPlsParser.MethodInvocationContext) parserRuleContext), "Function call command in ", false);
+            addCommand(new FunctionCallCommand((UnoPlsParser.MethodInvocationContext) parserRuleContext), "Function call command in ");
 //            SymbolTableManager.getInstance().getCurrentFunction().addCommand(new FunctionCallCommand((UnoPlsParser.MethodInvocationContext) parserRuleContext));
         }
 
@@ -98,11 +99,13 @@ public class BlockAnalyzer implements ParseTreeListener {
     }
 
 
-    static void addCommand(ICommand command, String message, Boolean isControlled) {
+    static void addCommand(ICommand command, String message) {
+        //IsControlled is used to identify if its a controlled command or not when add
+
         //If it is inside a controlled command let it be handled by the command control manager
         if(CommandControlManager.getInstance().isControl()){
             System.out.println(message + "controlled command");
-            CommandControlManager.getInstance().addCommand(command, isControlled);
+            CommandControlManager.getInstance().addCommand(command);
         }
         // Else add it directly to the function command list
         else{

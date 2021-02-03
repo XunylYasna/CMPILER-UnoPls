@@ -124,6 +124,10 @@ public class EvaluateCommand implements ICommand, ParseTreeListener {
             //this.result = parserRuleContext.getText(); do nothing
         }
 
+        if(parserRuleContext instanceof UnoPlsParser.MethodInvocation_lfno_primaryContext){
+
+        }
+
         if(parserRuleContext instanceof UnoPlsParser.IdentifierContext){
             if(SymbolTableManager.getInstance().getCurrentScope().containsVariableAllScopes(parserRuleContext.getText())){
                 System.out.println(this.modifiedExpression + " evaluate " + parserRuleContext.getText() + " " + SymbolTableManager.getInstance().getCurrentFunction().getFunctionName());
