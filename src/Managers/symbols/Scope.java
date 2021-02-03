@@ -16,6 +16,27 @@ public class Scope {
         this.localVariables = new HashMap<>();
     }
 
+    // For child scopes
+    public Scope(Scope parentScope){
+        int levelcount = 0;
+        String parentName = parentScope.getId();
+        Scope scope = parentScope;
+
+        while (scope.getParentScope() != null){
+            System.out.println(scope.getId());
+            levelcount += 1;
+            parentName = parentScope.getId();
+            scope = parentScope;
+        }
+        this.id = parentName + " - level:" + levelcount;
+        this.parentScope = parentScope;
+        this.localVariables = new HashMap<>();
+    }
+
+    public Scope getParentScope(){
+        return this.parentScope;
+    }
+
     // Variables (add, find, contains)
     public void addVariable(String identifier, Value value){
         // TODO

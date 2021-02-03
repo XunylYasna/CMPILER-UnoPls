@@ -27,7 +27,7 @@ public class Controller implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         codeArea.setParagraphGraphicFactory(LineNumberFactory.get(codeArea));
         runHelper = new RunHelper(codeArea, console);
-        codeArea.replaceText("func void hello(int x){\n print(\"hi\");\n}\n\nmain(){\n int x = 5;\n char t = 'c';\n boolean f = 12;\n float hello = 4.20;\n String roar = \"rawr\";\n print(5+5);\n hello(x); \n}");
+        codeArea.replaceText("func void hello(int x){\n if(x>5){\n  print(\"hi\");\n }\n else{\n  print(\"hello\");\n }\n}\n\nmain(){\n int x = 5;\n char t = 'c';\n boolean f = 12;\n float hello = 4.20;\n String roar = \"rawr\";\n print(5+5);\n hello(x); \n}");
     }
 
     @FXML

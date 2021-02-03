@@ -1,6 +1,7 @@
 package analyzer;
 
 import Managers.execution.ExecutionManager;
+import Managers.symbols.Scope;
 import Managers.symbols.SymbolTableManager;
 import antlr.UnoPlsParser;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -15,6 +16,8 @@ import representations.UnoFunction;
 // (mainDeclaration) - Handles finding the main class, checking for duplicate main classes
 public class MainAnalyzer implements ParseTreeListener {
 
+    private UnoFunction function;
+
     public MainAnalyzer() {
 
     }
@@ -24,7 +27,7 @@ public class MainAnalyzer implements ParseTreeListener {
             ExecutionManager.getInstance().reportEntryPoint();
 
             //Create a main function
-            UnoFunction function = new UnoFunction("main", null, PrimitiveType.VOID);
+            function = new UnoFunction("main", null, PrimitiveType.VOID);
             SymbolTableManager.getInstance().addFunction("main", function);
             SymbolTableManager.getInstance().setCurrentFunction(function);
             SymbolTableManager.getInstance().setCurrentScope(function.getFunctionScope());
@@ -51,7 +54,7 @@ public class MainAnalyzer implements ParseTreeListener {
     public void enterEveryRule(ParserRuleContext parserRuleContext) {
         if(parserRuleContext instanceof UnoPlsParser.MethodBodyContext) {
             UnoPlsParser.BlockContext blockCtx = ((UnoPlsParser.MethodBodyContext) parserRuleContext).block();
-            BlockAnalyzer blockAnalyzer = new BlockAnalyzer();
+            BlockAnalyzer blockAnalyzer = new BlockAnalyzer(this.function.getFunctionScope());
             blockAnalyzer.analyze(blockCtx);
         }
     }

@@ -1,9 +1,11 @@
 package analyzer;
 
+import Managers.commandControl.CommandControlManager;
 import Managers.execution.ExecutionManager;
 import Managers.symbols.Scope;
 import Managers.symbols.SymbolTableManager;
 import antlr.UnoPlsParser;
+import commands.ICommand;
 import commands.simple.FunctionCallCommand;
 import commands.simple.PrintCommand;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -15,20 +17,28 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 //(method body context) - Handles initalizing the local scope for code blocks (inside classes, inside functions, inside loops)
 public class BlockAnalyzer implements ParseTreeListener {
 
-    private boolean main = false;
-
     public BlockAnalyzer(){
+        //Creates a new scope under the current scope
+        Scope newScope = new Scope(SymbolTableManager.getInstance().getCurrentScope());
+        SymbolTableManager.getInstance().setCurrentScope(newScope);
+    }
 
+    public BlockAnalyzer(Scope scope){
+        //For function calls and main scope should already be created
     }
 
     public void analyze(UnoPlsParser.BlockContext ctx) {
         ParseTreeWalker treeWalker = new ParseTreeWalker();
         treeWalker.walk(this, ctx);
+        SymbolTableManager.getInstance().setCurrentScope(SymbolTableManager.getInstance().getCurrentScope().getParentScope());
     }
 
     @Override
     public void visitTerminal(TerminalNode terminalNode) {
-
+//        System.out.println(terminalNode.getSymbol() + " " + terminalNode.getSymbol().getText() + " " + UnoPlsParser.ELSE);
+        if(terminalNode.getSymbol().getText().equals("else")){
+            CommandControlManager.getInstance().enteredNegative();
+        }
     }
 
     @Override
@@ -45,27 +55,25 @@ public class BlockAnalyzer implements ParseTreeListener {
             variableAnalyzer.analyze(variableContext);
         }
         else if(parserRuleContext instanceof UnoPlsParser.StatementContext){
-            System.out.println("Statement Analyzer");
             UnoPlsParser.StatementContext statementContext = ((UnoPlsParser.StatementContext)parserRuleContext);
             StatementAnalyzer statementAnalyzer = new StatementAnalyzer();
             statementAnalyzer.analyze(statementContext);
         }
         else if(parserRuleContext instanceof UnoPlsParser.FunctionCallerContext){
-            System.out.println("Function call: " + parserRuleContext.getText() + " in " + SymbolTableManager.getInstance().getCurrentFunction().getFunctionName());
-            System.out.println();
-
+//            System.out.println("Function call: " + parserRuleContext.getText() + " in " + SymbolTableManager.getInstance().getCurrentFunction().getFunctionName());
 //            ((UnoPlsParser.FunctionCallerContext) parserRuleContext).identifier();
             if(parserRuleContext.getText().substring(0,6).equals("print(")){
-                SymbolTableManager.getInstance().getCurrentFunction().addCommand(new PrintCommand((UnoPlsParser.FunctionCallerContext) parserRuleContext));
+                addCommand(new PrintCommand((UnoPlsParser.FunctionCallerContext) parserRuleContext), "Print command in ", false);
+//                SymbolTableManager.getInstance().getCurrentFunction().addCommand(new PrintCommand((UnoPlsParser.FunctionCallerContext) parserRuleContext));
             }
             else if (parserRuleContext.getText().substring(0,5).equals("scan(")){
 
             }
         }
         else if(parserRuleContext instanceof UnoPlsParser.MethodInvocationContext){
-            //add funtion call command
-            SymbolTableManager.getInstance().getCurrentFunction().addCommand(new FunctionCallCommand((UnoPlsParser.MethodInvocationContext) parserRuleContext));
-
+            //add funtion call command to function
+            addCommand(new FunctionCallCommand((UnoPlsParser.MethodInvocationContext) parserRuleContext), "Function call command in ", false);
+//            SymbolTableManager.getInstance().getCurrentFunction().addCommand(new FunctionCallCommand((UnoPlsParser.MethodInvocationContext) parserRuleContext));
         }
 
         else{
@@ -75,6 +83,31 @@ public class BlockAnalyzer implements ParseTreeListener {
 
     @Override
     public void exitEveryRule(ParserRuleContext parserRuleContext) {
+        if(parserRuleContext instanceof UnoPlsParser.IfThenStatementContext){
+            //Leaves the if command sana gumana yung recursion amp
+            System.out.println("Leaving if command");
+            CommandControlManager.getInstance().exitedCommand();
+            //CommandControlManager.getInstance().resetConditionalManager();
+        }
+        if(parserRuleContext instanceof UnoPlsParser.IfThenElseStatementContext){
+            //Leaves the if command sana gumana yung recursion amp
+            System.out.println("Leaving if else command");
+//            CommandControlManager.getInstance().resetConditionalManager();
+            CommandControlManager.getInstance().exitedCommand();
+        }
+    }
 
+
+    static void addCommand(ICommand command, String message, Boolean isControlled) {
+        //If it is inside a controlled command let it be handled by the command control manager
+        if(CommandControlManager.getInstance().isControl()){
+            System.out.println(message + "controlled command");
+            CommandControlManager.getInstance().addCommand(command, isControlled);
+        }
+        // Else add it directly to the function command list
+        else{
+            System.out.println(message + SymbolTableManager.getInstance().getCurrentFunction().getFunctionName());
+            SymbolTableManager.getInstance().getCurrentFunction().addCommand(command);
+        }
     }
 }

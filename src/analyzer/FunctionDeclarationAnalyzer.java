@@ -11,7 +11,6 @@ import representations.PrimitiveType;
 import representations.UnoFunction;
 import representations.Value;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class FunctionDeclarationAnalyzer implements ParseTreeListener {
@@ -19,6 +18,7 @@ public class FunctionDeclarationAnalyzer implements ParseTreeListener {
     PrimitiveType resultType;
     String functionName;
     LinkedHashMap<String, Value> parameters;
+    UnoFunction function;
 
     public FunctionDeclarationAnalyzer(){
         parameters = new LinkedHashMap<>();
@@ -31,21 +31,21 @@ public class FunctionDeclarationAnalyzer implements ParseTreeListener {
         PrimitiveType resultType = PrimitiveType.fromString(functionDeclarationContext.methodHeader().result().getText()); // gets result type
         String functionName = functionDeclarationContext.methodHeader().methodDeclarator().identifier().getText(); // get function name
         System.out.println("Function declaration: " + functionName);
-        UnoFunction unoFunction = new UnoFunction(functionName,null,resultType);
+        function = new UnoFunction(functionName,null,resultType);
 
-        SymbolTableManager.getInstance().addFunction(functionName, unoFunction);
+        SymbolTableManager.getInstance().addFunction(functionName, function);
 
         //Walk the context in order to initialize variables
 
         //Set current uno function in order to pass it to other visit commands
-        SymbolTableManager.getInstance().setCurrentFunction(unoFunction);
-        SymbolTableManager.getInstance().setCurrentScope(unoFunction.getFunctionScope());
+        SymbolTableManager.getInstance().setCurrentFunction(function);
+        SymbolTableManager.getInstance().setCurrentScope(function.getFunctionScope());
 
         ParseTreeWalker treeWalker = new ParseTreeWalker();
         treeWalker.walk(this, functionDeclarationContext);
 
         // Set the parameters in order to reassign them at function call
-        unoFunction.initParameters(parameters);
+        function.initParameters(parameters);
 
     }
 
@@ -72,7 +72,7 @@ public class FunctionDeclarationAnalyzer implements ParseTreeListener {
 
         if(parserRuleContext instanceof UnoPlsParser.MethodBodyContext) {
             UnoPlsParser.BlockContext blockCtx = ((UnoPlsParser.MethodBodyContext) parserRuleContext).block();
-            BlockAnalyzer blockAnalyzer = new BlockAnalyzer();
+            BlockAnalyzer blockAnalyzer = new BlockAnalyzer(this.function.getFunctionScope());
             blockAnalyzer.analyze(blockCtx);
         }
 
