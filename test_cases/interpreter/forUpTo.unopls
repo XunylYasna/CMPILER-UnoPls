@@ -1,0 +1,6 @@
+main(){
+  int i = 0;
+  for i up to 10{
+     print(i);
+  }
+ }

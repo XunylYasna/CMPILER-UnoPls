@@ -87,33 +87,8 @@ public class Value {
         }
     }
 
-    /*
-     * Utility function.
-     * Attempts to add an empty variable based from keywords
-     */
-    public static Value createEmptyVariableFromKeywords(String primitiveTypeString) {
-
-        //identify primitive type
-        PrimitiveType primitiveType = PrimitiveType.EWAN;
-
-        if(RecognizedKeywords.matchesKeyword(RecognizedKeywords.PRIMITIVE_TYPE_BOOLEAN, primitiveTypeString)) {
-            primitiveType = PrimitiveType.BOOL;
-        }
-        else if(RecognizedKeywords.matchesKeyword(RecognizedKeywords.PRIMITIVE_TYPE_CHAR, primitiveTypeString)) {
-            primitiveType = PrimitiveType.CHAR;
-        }
-        else if(RecognizedKeywords.matchesKeyword(RecognizedKeywords.PRIMITIVE_TYPE_DECIMAL, primitiveTypeString)) {
-            primitiveType = PrimitiveType.FLOAT;
-        }
-        else if(RecognizedKeywords.matchesKeyword(RecognizedKeywords.PRIMITIVE_TYPE_INT, primitiveTypeString)) {
-            primitiveType = PrimitiveType.INT;
-        }
-        else if(RecognizedKeywords.matchesKeyword(RecognizedKeywords.PRIMITIVE_TYPE_STRING, primitiveTypeString)) {
-            primitiveType = PrimitiveType.STRING;
-        }
-
-        Value value = new Value(null, primitiveType);
-
-        return value;
+    public void incrementValue(){
+        this.value = ((Double.valueOf((String)this.value) + 1) + "");
     }
+
 }

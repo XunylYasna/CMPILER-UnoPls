@@ -93,7 +93,15 @@ public class BlockAnalyzer implements ParseTreeListener {
         if(parserRuleContext instanceof UnoPlsParser.IfThenElseStatementContext){
             //Leaves the if command sana gumana yung recursion amp
             System.out.println("Leaving if else command");
-//            CommandControlManager.getInstance().resetConditionalManager();
+            CommandControlManager.getInstance().exitedCommand();
+        }
+        if(parserRuleContext instanceof UnoPlsParser.WhileStatementContext){
+            //Leaves the if command sana gumana yung recursion amp
+            System.out.println("Leaving while command");
+            CommandControlManager.getInstance().exitedCommand();
+        }
+        if(parserRuleContext instanceof UnoPlsParser.ForUpToStatementContext){
+            System.out.println("Leaving for up to command");
             CommandControlManager.getInstance().exitedCommand();
         }
     }

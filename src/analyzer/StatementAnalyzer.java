@@ -3,7 +3,9 @@ package analyzer;
 import Managers.commandControl.CommandControlManager;
 import Managers.symbols.SymbolTableManager;
 import antlr.UnoPlsParser;
+import commands.controlled.ForUpToCommand;
 import commands.controlled.IfCommand;
+import commands.controlled.WhileCommand;
 import commands.evaluation.AssignmentCommand;
 import commands.simple.ReturnCommand;
 
@@ -24,7 +26,7 @@ public class StatementAnalyzer {
             CommandControlManager.getInstance().initializeCommand(ifCommand, ifCommand.getControlType());
 
         }
-        // if else  statement
+        // if else statement
         else if(statementCtx.ifThenElseStatement() != null){
             UnoPlsParser.IfThenElseStatementContext ifThenElseStatementContext = statementCtx.ifThenElseStatement();
             IfCommand ifCommand = new IfCommand(ifThenElseStatementContext.expression());
@@ -32,9 +34,21 @@ public class StatementAnalyzer {
             //Call command control manager to instantiate the if command
             CommandControlManager.getInstance().initializeCommand(ifCommand, ifCommand.getControlType());
         }
+        // while statement
+        else if(statementCtx.whileStatement() != null){
+            UnoPlsParser.WhileStatementContext whileStatementContext = statementCtx.whileStatement();
+            WhileCommand whileCommand = new WhileCommand(whileStatementContext.expression());
 
+            CommandControlManager.getInstance().initializeCommand(whileCommand, whileCommand.getControlType());
+        }
+        // for up to statement
+        else if(statementCtx.forUpToStatement() != null){
+            UnoPlsParser.IdentifierContext identifierContext = statementCtx.forUpToStatement().identifier();
+            UnoPlsParser.ExpressionContext expressionContext = statementCtx.forUpToStatement().expression();
 
-
+            ForUpToCommand forUpToCommand = new ForUpToCommand(identifierContext, expressionContext);
+            CommandControlManager.getInstance().initializeCommand(forUpToCommand, forUpToCommand.getControlType());
+        }
         //TODO AYUSIN MO TO HAYUP, magulo pero pwede na siguro
         else if(statementCtx.statementWithoutTrailingSubstatement() != null){
 

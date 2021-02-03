@@ -44,6 +44,7 @@ public class RunHelper {
         symbolTableManager = symbolTableManager.getInstance();
         semanticErrorManager = semanticErrorManager.getInstance();
         outputManager = outputManager.getInstance();
+        outputManager.setConsole(this.console);
     }
 
 
@@ -61,6 +62,7 @@ public class RunHelper {
         executionManager.getInstance();
         semanticErrorManager.getInstance();
         outputManager.getInstance();
+        outputManager.setConsole(this.console);
 
         System.out.println("Running Program with the following input: ");
         System.out.println(input);
@@ -112,11 +114,13 @@ public class RunHelper {
                 executionManager.execute();
 
                 //Fix mo pa to kasi isang bagsakan yung output mo... pano kung may scan in between
-                for(String outputLogs : outputManager.getOutputLogs()){
-//                    System.out.println("output: " + outputLogs);
-                    Text log = new Text(outputLogs.replaceAll("_LINEBREAK_", "\n"));
-                    console.getChildren().add(log);
-                }
+//                for(String outputLogs : outputManager.getOutputLogs()){
+////                    System.out.println("output: " + outputLogs);
+//                    Text log = new Text(outputLogs.replaceAll("_LINEBREAK_", "\n"));
+//                    console.getChildren().add(log);
+//                }
+
+                System.out.println("===========End of Execution.===========");
             }
         }
 
