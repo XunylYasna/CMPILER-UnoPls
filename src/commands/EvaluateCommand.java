@@ -35,8 +35,7 @@ public class EvaluateCommand implements ICommand, ParseTreeListener {
     @Override
     public void execute() {
         this.modifiedExpression = expressionContext.getText();
-
-
+        System.err.println(expressionContext.getText() + "evaluate command");
         ParseTreeWalker treeWalker = new ParseTreeWalker();
         treeWalker.walk(this, expressionContext);
 
@@ -128,15 +127,17 @@ public class EvaluateCommand implements ICommand, ParseTreeListener {
 
         else if(parserRuleContext instanceof UnoPlsParser.MethodInvocation_lfno_primaryContext){
             this.isFunction = true;
+            System.out.println("Evaluate function");
             this.modifiedExpression = (String) new FunctionCallCommand((UnoPlsParser.MethodInvocation_lfno_primaryContext)parserRuleContext).evaluateFunctionCall().getValue();
         }
 
+        //If the evaluator encounters an identifier context
         else if(parserRuleContext instanceof UnoPlsParser.IdentifierContext && !isFunction){
-            System.out.println(SymbolTableManager.getInstance().getCurrentScope().getId());
+//            System.err.println("Evaluate walk identifier context " + parserRuleContext.getText());
+//            System.out.println(SymbolTableManager.getInstance().getCurrentScope().getId());
             if(SymbolTableManager.getInstance().getCurrentScope().containsVariableAllScopes(parserRuleContext.getText())){
-                System.out.println(this.modifiedExpression + " evaluate " + parserRuleContext.getText() + " " + SymbolTableManager.getInstance().getCurrentFunction().getFunctionName());
+//                System.out.println(this.modifiedExpression + " evaluate " + parserRuleContext.getText() + " " + SymbolTableManager.getInstance().getCurrentFunction().getFunctionName());
                 Value variable = SymbolTableManager.getInstance().getCurrentFunction().getFunctionScope().findVariableValueAllScopes(parserRuleContext.getText());
-                System.out.println(variable.getValue());
                 this.modifiedExpression = this.modifiedExpression.replace(parserRuleContext.getText(), (CharSequence) variable.getValue());
             }
             else{
@@ -151,10 +152,6 @@ public class EvaluateCommand implements ICommand, ParseTreeListener {
 
     @Override
     public void exitEveryRule(ParserRuleContext parserRuleContext) {
-
-    }
-
-    private void evaluateVariable(UnoPlsParser.ExpressionContext expressionContext){
 
     }
 

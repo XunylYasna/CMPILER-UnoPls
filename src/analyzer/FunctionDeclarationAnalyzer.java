@@ -46,7 +46,6 @@ public class FunctionDeclarationAnalyzer implements ParseTreeListener {
 
         // Set the parameters in order to reassign them at function call
         function.initParameters(parameters);
-
     }
 
     @Override

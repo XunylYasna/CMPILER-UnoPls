@@ -22,12 +22,14 @@ public class FunctionCallCommand implements ICommand, ParseTreeListener {
     private UnoPlsParser.MethodInvocationContext methodInvocationContext;
     private UnoPlsParser.MethodInvocation_lfno_primaryContext methodInvocation_lfno_primaryContext;
     private UnoFunction unoFunction;
+    private UnoFunction parentFunction;
     private UnoPlsParser.ExpressionContext expressionContext;
     private String functionName;
-
+    private boolean isNormalCall;
     private ArrayList<Value> parameterValue;
 
     public FunctionCallCommand(UnoPlsParser.MethodInvocationContext methodInvocationContext){
+        isNormalCall = true;
         this.methodInvocationContext = methodInvocationContext;
         this.functionName = methodInvocationContext.methodName().identifier().getText();
 
@@ -38,12 +40,11 @@ public class FunctionCallCommand implements ICommand, ParseTreeListener {
 
         //walk the function call to get parameters
         parameterValue = new ArrayList<>();
-        ParseTreeWalker treeWalker = new ParseTreeWalker();
-        treeWalker.walk(this, this.methodInvocationContext);
+
     }
 
     public FunctionCallCommand(UnoPlsParser.MethodInvocation_lfno_primaryContext methodInvocationContext){
-
+        isNormalCall = false;
         this.methodInvocation_lfno_primaryContext = methodInvocationContext;
         this.functionName = methodInvocationContext.methodName().identifier().getText();
 
@@ -52,36 +53,38 @@ public class FunctionCallCommand implements ICommand, ParseTreeListener {
         unoFunction = SymbolTableManager.getInstance().findFunction(functionName);
         this.functionName = unoFunction.getFunctionName();
         System.out.println("Function call in variable assignment in " + SymbolTableManager.getInstance().getCurrentFunction().getFunctionName());
-        //walk the function call to get parameters
+
         parameterValue = new ArrayList<>();
-        ParseTreeWalker treeWalker = new ParseTreeWalker();
-        treeWalker.walk(this, this.methodInvocation_lfno_primaryContext);
+
     }
 
     public Value evaluateFunctionCall(){
-        UnoFunction parentFunction = SymbolTableManager.getInstance().getCurrentFunction();
-        System.out.println("Executing function call in an expression in function " + parentFunction.getFunctionName());
-        this.unoFunction.setParameters(parameterValue);
-        for (ICommand command: unoFunction.getCommandList()) {
-            command.execute();
-        }
-        SymbolTableManager.getInstance().setCurrentFunction(parentFunction);
-        SymbolTableManager.getInstance().setCurrentScope(parentFunction.getFunctionScope());
+//        System.out.println("Executing function call in an expression in function " + parentFunction.getFunctionName());
+        this.execute();
         return this.unoFunction.getReturnValue();
     }
 
     @Override
     public void execute() {
         System.out.println("Executing function call: " + functionName + "" );
+        parentFunction = SymbolTableManager.getInstance().getCurrentFunction();
+        // set the paremeters of the function
+        //walk the function call to get parameters
+        ParseTreeWalker treeWalker = new ParseTreeWalker();
+        if(isNormalCall){
+            treeWalker.walk(this, this.methodInvocationContext);
+        }
+        else{
+            treeWalker.walk(this, this.methodInvocation_lfno_primaryContext);
+        }
+        this.unoFunction.setParameters(parameterValue);
         SymbolTableManager.getInstance().setCurrentFunction(this.unoFunction);
         SymbolTableManager.getInstance().setCurrentScope(this.unoFunction.getFunctionScope());
-        // set the paremeters of the function
-        this.unoFunction.setParameters(parameterValue);
         for (ICommand command: unoFunction.getCommandList()) {
             command.execute();
         }
-        SymbolTableManager.getInstance().setCurrentFunction(SymbolTableManager.getInstance().findFunction("main"));
-        SymbolTableManager.getInstance().setCurrentScope(SymbolTableManager.getInstance().findFunction("main").getFunctionScope());
+        SymbolTableManager.getInstance().setCurrentFunction(parentFunction);
+        SymbolTableManager.getInstance().setCurrentScope(parentFunction.getFunctionScope());
     }
 
     public void getReturn(){

@@ -49,7 +49,6 @@ public class Scope {
         //Check for errors (undeclared variable, variable out of scope, type mismatch
         System.out.println("Reassigning variable " + identifier + " to " + value.getValue());
         this.localVariables.replace(identifier,value);
-//        System.out.println(this.localVariables.get("x").getValue());
     }
 
     public HashMap<String,Value> getLocalVariables(){

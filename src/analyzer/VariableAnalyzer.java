@@ -4,6 +4,7 @@ import Managers.errors.SemanticErrorManager;
 import Managers.symbols.SymbolTableManager;
 import antlr.UnoPlsParser;
 import commands.EvaluateCommand;
+import commands.evaluation.AssignmentCommand;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
@@ -20,24 +21,19 @@ public class VariableAnalyzer implements ParseTreeListener {
     PrimitiveType primitiveType = PrimitiveType.fromString("ewan");
     UnoPlsParser.ExpressionContext variableExpression;
     String expression;
-
     Value value;
-
+    private boolean withAssignment;
 
     public VariableAnalyzer(){
+        this.withAssignment = false;
     }
 
 
     public void analyze(UnoPlsParser.LocalVariableDeclarationContext localVarDecCtx) {
-        //Walk the parse tree to get necessary values
+        //Walk the parse tree to get necessary values(id, type, expression?)
         ParseTreeWalker treeWalker = new ParseTreeWalker();
         treeWalker.walk(this, localVarDecCtx);
 
-        EvaluateCommand evaluateCommand = new EvaluateCommand(variableExpression);
-        evaluateCommand.execute();
-        this.value = new Value(evaluateCommand.evaluateExpression(), primitiveType);
-
-        System.out.println("created variable " + this.id + " " + this.value.getValue().toString());
 
         if(SymbolTableManager.getInstance().getCurrentScope().containsVariableAllScopes(id)){
             SemanticErrorManager.getInstance().addSemanticError("Semantic Error("+
@@ -45,7 +41,15 @@ public class VariableAnalyzer implements ParseTreeListener {
             + ") Invalid declaration. Variable '" + id + "' is already declared");
         }
         else{
+            this.value = new Value(null, primitiveType);
+            System.out.println("Created variable " + this.id + " in function " + SymbolTableManager.getInstance().getCurrentScope().getId());
             SymbolTableManager.getInstance().getCurrentScope().addVariable(id,value);
+        }
+
+        if(withAssignment){
+            System.out.println("Found assignment command in variable declaration. Adding new assignment command in function " + SymbolTableManager.getInstance().getCurrentFunction().getFunctionName());
+            AssignmentCommand assignmentCommand = new AssignmentCommand(id, variableExpression);
+            SymbolTableManager.getInstance().getCurrentFunction().addCommand(assignmentCommand);
         }
     }
 
@@ -108,7 +112,9 @@ public class VariableAnalyzer implements ParseTreeListener {
 
         // Get variable value
         if(parserRuleContext instanceof UnoPlsParser.VariableInitializerContext) {
+            withAssignment = true;
             this.variableExpression = ((UnoPlsParser.VariableInitializerContext) parserRuleContext).expression();
+//            System.err.println("Variable analyzer = " +id+" "+ ((UnoPlsParser.VariableInitializerContext) parserRuleContext).expression().getText());
             this.expression = parserRuleContext.getText();
         }
 //        if(parserRuleContext instanceof UnoPlsParser.ExpressionContext) {

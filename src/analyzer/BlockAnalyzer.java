@@ -50,7 +50,7 @@ public class BlockAnalyzer implements ParseTreeListener {
     @Override
     public void enterEveryRule(ParserRuleContext parserRuleContext) {
         if(parserRuleContext instanceof UnoPlsParser.LocalVariableDeclarationStatementContext) {
-            System.out.println("Variable Declaration");
+//            System.out.println("Variable Declaration");
             UnoPlsParser.LocalVariableDeclarationContext variableContext = ((UnoPlsParser.LocalVariableDeclarationStatementContext)parserRuleContext).localVariableDeclaration();
             VariableAnalyzer variableAnalyzer = new VariableAnalyzer();
             variableAnalyzer.analyze(variableContext);

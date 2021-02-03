@@ -49,8 +49,8 @@ public class StatementAnalyzer {
                 // do nothing
             }
             else if(statementCtx.statementWithoutTrailingSubstatement().expressionStatement() != null){
+                // Assignment
                 if (statementCtx.statementWithoutTrailingSubstatement().expressionStatement().statementExpression().assignment() != null) {
-
                     UnoPlsParser.AssignmentContext assignmentContext = statementCtx.statementWithoutTrailingSubstatement().expressionStatement().statementExpression().assignment();
                     AssignmentCommand assignmentCommand = new AssignmentCommand(assignmentContext.leftHandSide(), assignmentContext.expression());
 

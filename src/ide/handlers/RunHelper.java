@@ -100,7 +100,7 @@ public class RunHelper {
             }
             //Else execute all commands in the command stack
             else{
-                System.out.println("Compiled Variables and Initialized Function Stack. Ready to execute.");
+                System.out.println("===========Compiled Variables and Initialized Function Stack. Ready to execute.===========");
                 UnoFunction mainFunction = SymbolTableManager.getInstance().findFunction("main");
                 SymbolTableManager.getInstance().setCurrentFunction(mainFunction);
                 SymbolTableManager.getInstance().setCurrentScope(mainFunction.getFunctionScope());
