@@ -30,6 +30,7 @@ public class PrintCommand implements ICommand, ParseTreeListener {
         EvaluateCommand evaluateCommand = new EvaluateCommand(expressionContext);
         evaluateCommand.execute();
         this.evaluatedExpression = (String) evaluateCommand.evaluateExpression();
+        this.evaluatedExpression = this.evaluatedExpression.replaceAll("\"","");
         System.out.println("Executing Print Command in function: " + SymbolTableManager.getInstance().getCurrentFunction().getFunctionName());
         OutputManager.getInstance().addoutputLog(evaluatedExpression);
     }

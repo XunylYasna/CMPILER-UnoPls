@@ -30,6 +30,7 @@ public class EvaluateCommand implements ICommand, ParseTreeListener {
         this.expressionContext = expressionContext;
         this.hasError = false;
         this.isFunction = false;
+        this.isNumeric = true;
     }
 
     @Override
@@ -40,11 +41,12 @@ public class EvaluateCommand implements ICommand, ParseTreeListener {
         treeWalker.walk(this, expressionContext);
 
 
-
+        if(isNumeric){
+            isNumeric = !this.modifiedExpression.contains("\"") && !this.modifiedExpression.contains("\'");
+        }
         //Evaluate expression if the expression does not contain any errors
         if(!hasError){
             //checks for the data type before evaluating
-            isNumeric = !this.modifiedExpression.contains("\"") && !this.modifiedExpression.contains("\'");
             if(!isNumeric){
                 // == or !=
                 if (this.modifiedExpression.contains("==") || this.modifiedExpression.contains("!=")) {
@@ -94,11 +96,15 @@ public class EvaluateCommand implements ICommand, ParseTreeListener {
                     }
                 }
                 else{
-                    this.result = this.modifiedExpression;
+                    String temp = this.modifiedExpression.replaceAll("\\+", "");
+//                    temp = temp.replaceAll("\"", "");
+//                    temp = temp.replaceAll("'","");
+                    this.result = temp;
                 }
             }
             //Numeric Expressions
             else{
+                System.out.println(this.modifiedExpression + "==============");
                 BigDecimal e = new Expression(this.modifiedExpression)
                         .setPrecision(3)
                         .eval(); // 0.333;
@@ -128,7 +134,8 @@ public class EvaluateCommand implements ICommand, ParseTreeListener {
         else if(parserRuleContext instanceof UnoPlsParser.MethodInvocation_lfno_primaryContext){
             this.isFunction = true;
             System.out.println("Evaluate function");
-            this.modifiedExpression = (String) new FunctionCallCommand((UnoPlsParser.MethodInvocation_lfno_primaryContext)parserRuleContext).evaluateFunctionCall().getValue();
+            String temp = (String) new FunctionCallCommand((UnoPlsParser.MethodInvocation_lfno_primaryContext)parserRuleContext).evaluateFunctionCall().getValue();
+            this.modifiedExpression.replace(parserRuleContext.getText(), temp);
         }
 
         //If the evaluator encounters an identifier context
@@ -138,7 +145,15 @@ public class EvaluateCommand implements ICommand, ParseTreeListener {
             if(SymbolTableManager.getInstance().getCurrentScope().containsVariableAllScopes(parserRuleContext.getText())){
                 System.out.println(this.modifiedExpression + " evaluate " + parserRuleContext.getText() + " " + SymbolTableManager.getInstance().getCurrentFunction().getFunctionName());
                 Value variable = SymbolTableManager.getInstance().getCurrentFunction().getFunctionScope().findVariableValueAllScopes(parserRuleContext.getText());
-                this.modifiedExpression = this.modifiedExpression.replace(parserRuleContext.getText(), (CharSequence) variable.getValue());
+
+                String temp = (String) variable.getValue();
+                if(temp.contains("\"")){
+                    isNumeric = false;
+                }
+                temp = temp.replaceAll("\"", "");
+                temp = temp.replaceAll("'","");
+
+                this.modifiedExpression = this.modifiedExpression.replace(parserRuleContext.getText(), temp);
             }
             else{
                 SemanticErrorManager.getInstance().addSemanticError(
