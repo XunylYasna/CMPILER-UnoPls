@@ -106,4 +106,8 @@ public class CommandControlManager {
     public void enteredNegative(){
         isInPositive = false;
     }
+
+    public boolean getIsInPositive() {
+        return this.isInPositive;
+    }
 }

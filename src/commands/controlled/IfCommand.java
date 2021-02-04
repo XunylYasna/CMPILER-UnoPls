@@ -1,12 +1,13 @@
 package commands.controlled;
 
+import Managers.commandControl.CommandControlManager;
 import antlr.UnoPlsParser;
 import commands.EvaluateCommand;
 import commands.ICommand;
 
 import java.util.*;
 
-public class IfCommand implements IConditionalCommand {
+public class IfCommand implements IConditionalCommand, IControlledCommand {
 
     private ArrayList<ICommand> positiveCommands; //list of commands to execute if the condition holds true
     private ArrayList<ICommand> negativeCommands; //list of commands to execute if the condition holds false
@@ -49,6 +50,16 @@ public class IfCommand implements IConditionalCommand {
     @Override
     public IControlledCommand.ControlTypeEnum getControlType() {
         return IControlledCommand.ControlTypeEnum.CONDITIONAL_IF;
+    }
+
+    @Override
+    public void addCommand(ICommand command) {
+        if(CommandControlManager.getInstance().getIsInPositive()){
+            this.addPositiveCommand(command);
+        }
+        else{
+            this.addNegativeCommand(command);
+        }
     }
 
     @Override
