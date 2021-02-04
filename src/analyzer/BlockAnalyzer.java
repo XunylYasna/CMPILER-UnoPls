@@ -8,6 +8,7 @@ import antlr.UnoPlsParser;
 import commands.ICommand;
 import commands.simple.FunctionCallCommand;
 import commands.simple.PrintCommand;
+import commands.simple.ScanCommand;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
@@ -68,7 +69,7 @@ public class BlockAnalyzer implements ParseTreeListener {
 //                SymbolTableManager.getInstance().getCurrentFunction().addCommand(new PrintCommand((UnoPlsParser.FunctionCallerContext) parserRuleContext));
             }
             else if (parserRuleContext.getText().substring(0,5).equals("scan(")){
-
+                addCommand(new ScanCommand(((UnoPlsParser.FunctionCallerContext) parserRuleContext).expression(), ((UnoPlsParser.FunctionCallerContext) parserRuleContext).identifier()), "Scan command in ");
             }
         }
         else if(parserRuleContext instanceof UnoPlsParser.MethodInvocationContext){

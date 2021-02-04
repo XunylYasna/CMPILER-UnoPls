@@ -29,10 +29,6 @@ public class RunHelper {
     CodeArea codeArea;
     TextFlow console;
 
-    ExecutionManager executionManager;
-    SymbolTableManager symbolTableManager;
-    SemanticErrorManager semanticErrorManager;
-    OutputManager outputManager;
 
     SyntaxErrorListener syntaxErrorListener;
 
@@ -40,11 +36,6 @@ public class RunHelper {
         this.codeArea = codeArea;
         this.console = console;
         this.syntaxErrors = new ArrayList<>();
-        executionManager = executionManager.getInstance();
-        symbolTableManager = symbolTableManager.getInstance();
-        semanticErrorManager = semanticErrorManager.getInstance();
-        outputManager = outputManager.getInstance();
-        outputManager.setConsole(this.console);
     }
 
 
@@ -53,16 +44,14 @@ public class RunHelper {
         console.getChildren().clear();
         String input = codeArea.getText();
         //Reinstantiate Execution Manager and Symbol Table Manager
-        executionManager.resetExecutionManager();
-        symbolTableManager.resetSymbolTableManager();
-        semanticErrorManager.resetSemanticErrorManager();
-        outputManager.resetOutputManager();
+        ExecutionManager.getInstance().resetExecutionManager();
+        SymbolTableManager.getInstance().resetSymbolTableManager();
+        SemanticErrorManager.getInstance().resetSemanticErrorManager();
 
-        symbolTableManager.getInstance();
-        executionManager.getInstance();
-        semanticErrorManager.getInstance();
-        outputManager.getInstance();
-        outputManager.setConsole(this.console);
+        OutputManager.getInstance().setConsole(console);
+        OutputManager.getInstance().resetOutputManager();
+        OutputManager.getInstance().setConsole(console);
+
 
         System.out.println("Running Program with the following input: ");
         System.out.println(input);
@@ -93,8 +82,8 @@ public class RunHelper {
 
 
             //If semantic errors exist add errors to logs
-            if(semanticErrorManager.isErrorFlag()){
-                for(String semanticError : semanticErrorManager.getSemanticErrors()){
+            if(SemanticErrorManager.getInstance().isErrorFlag()){
+                for(String semanticError : SemanticErrorManager.getInstance().getSemanticErrors()){
                     Text error = new Text(semanticError.replaceAll("_LINEBREAK_", "\n"));
                     error.setFill(Color.DARKRED);
                     console.getChildren().add(error);
@@ -108,10 +97,10 @@ public class RunHelper {
                 SymbolTableManager.getInstance().setCurrentScope(mainFunction.getFunctionScope());
                 // Add all commands of the main function to the execution manager
                 for(int i = 0; i < mainFunction.getCommandList().size(); i++ ){
-                    executionManager.addExecutionList(mainFunction.getCommandList().get(i));
+                    ExecutionManager.getInstance().addExecutionList(mainFunction.getCommandList().get(i));
                 }
 
-                executionManager.execute();
+                ExecutionManager.getInstance().execute();
 
                 //Fix mo pa to kasi isang bagsakan yung output mo... pano kung may scan in between
 //                for(String outputLogs : outputManager.getOutputLogs()){

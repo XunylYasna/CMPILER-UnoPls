@@ -1,5 +1,6 @@
 package Managers.io;
 
+import ide.inputForm.InputDialog;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
@@ -10,7 +11,7 @@ public class OutputManager {
     //Singleton
     private static OutputManager sharedInstance = null;
     private static ArrayList<String> outputLogs;
-    private TextFlow console;
+    private static TextFlow console;
 
     public static OutputManager getInstance(){
         if(sharedInstance == null){
@@ -28,10 +29,29 @@ public class OutputManager {
 
     }
 
+    public String getInput(String message){
+
+        ide.inputForm.InputDialog dialog = new InputDialog();
+        dialog.setTitle("UnoPls - Scan Function");
+        dialog.setTextField(message);
+        dialog.pack();
+        dialog.setVisible(true);
+
+        String result = dialog.getResult();
+        return result;
+    }
+
+    public void addRunTimeError(String log){
+        Text logText = new Text(log.replaceAll("_LINEBREAK_", "\n"));
+        console.getChildren().add(logText);
+        console.getChildren().add(new Text(System.lineSeparator()));
+    }
+
     public void addoutputLog(String log){
         this.outputLogs.add(log);
         Text logText = new Text(log.replaceAll("_LINEBREAK_", "\n"));
         console.getChildren().add(logText);
+        console.getChildren().add(new Text(System.lineSeparator()));
     }
 
     public void resetOutputManager(){

@@ -46,7 +46,7 @@ public class Scope {
 
     public void reAssignVariable(String identifier, Value value){
         // TODO
-        //Check for errors (undeclared variable, variable out of scope, type mismatch
+        // Check for errors (undeclared variable, variable out of scope, type mismatch
         System.out.println("Reassigning variable " + identifier + " to " + value.getValue());
         this.localVariables.replace(identifier,value);
     }

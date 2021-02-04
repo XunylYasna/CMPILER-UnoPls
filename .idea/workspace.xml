@@ -3,29 +3,19 @@
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="Initialized files">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/UnoPls/Managers/commandControl/CommandControlManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/UnoPls/Managers/commandControl/CommandControlManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UnoPls.iml" beforeDir="false" afterPath="$PROJECT_DIR$/UnoPls.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/UnoPls/Managers/io/OutputManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/UnoPls/Managers/io/OutputManager.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/UnoPls/analyzer/BlockAnalyzer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/UnoPls/analyzer/BlockAnalyzer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/UnoPls/analyzer/StatementAnalyzer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/UnoPls/analyzer/StatementAnalyzer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/UnoPls/commands/controlled/IControlledCommand$ControlTypeEnum.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/UnoPls/commands/controlled/IControlledCommand$ControlTypeEnum.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/UnoPls/commands/controlled/WhileCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/UnoPls/commands/controlled/WhileCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/UnoPls/commands/EvaluateCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/UnoPls/commands/EvaluateCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/UnoPls/commands/controlled/ForUpToCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/UnoPls/commands/controlled/ForUpToCommand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/UnoPls/commands/simple/ScanCommand.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/UnoPls/commands/simple/ScanCommand.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/UnoPls/ide/handlers/RunHelper.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/UnoPls/ide/handlers/RunHelper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/UnoPls/representations/Value.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/UnoPls/representations/Value.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Managers/commandControl/CommandControlManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Managers/commandControl/CommandControlManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Managers/io/OutputManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Managers/io/OutputManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Managers/symbols/Scope.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Managers/symbols/Scope.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/analyzer/BlockAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/analyzer/BlockAnalyzer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/analyzer/StatementAnalyzer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/analyzer/StatementAnalyzer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commands/controlled/IControlledCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/controlled/IControlledCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/commands/controlled/WhileCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/controlled/WhileCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commands/EvaluateCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/EvaluateCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/commands/simple/ScanCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/commands/simple/ScanCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ide/handlers/RunHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ide/handlers/RunHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/representations/Value.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/representations/Value.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_cases/interpreter/array_sort.1pls" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_cases/interpreter/asciiart.1pls" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_cases/interpreter/binarysearch.1pls" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_cases/interpreter/dowhile.1pls" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_cases/interpreter/recursefactorial.1pls" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_cases/interpreter/recursegcd.1pls" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_cases/interpreter/while.unopls" beforeDir="false" afterPath="$PROJECT_DIR$/test_cases/interpreter/while.unopls" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -97,13 +87,14 @@
         <counts>
           <entry key="class" value="1" />
           <entry key="css" value="1" />
+          <entry key="form" value="3" />
           <entry key="fxml" value="6" />
           <entry key="g4" value="6" />
           <entry key="heelo" value="1" />
           <entry key="interp" value="3" />
-          <entry key="java" value="333" />
+          <entry key="java" value="346" />
           <entry key="md" value="1" />
-          <entry key="unopls" value="16" />
+          <entry key="unopls" value="17" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
@@ -111,9 +102,10 @@
           <entry key="ANTLR v4 grammar file" value="6" />
           <entry key="CLASS" value="1" />
           <entry key="CSS" value="1" />
-          <entry key="JAVA" value="333" />
+          <entry key="GUI_DESIGNER_FORM" value="3" />
+          <entry key="JAVA" value="346" />
           <entry key="Markdown" value="1" />
-          <entry key="PLAIN_TEXT" value="20" />
+          <entry key="PLAIN_TEXT" value="21" />
           <entry key="XML" value="6" />
         </counts>
       </usages-collector>
@@ -123,7 +115,7 @@
           <entry key="dummy" value="77" />
           <entry key="fxml" value="32" />
           <entry key="g4" value="33" />
-          <entry key="java" value="31856" />
+          <entry key="java" value="32752" />
           <entry key="md" value="96" />
           <entry key="txt" value="22" />
           <entry key="unopls" value="110" />
@@ -133,7 +125,7 @@
         <counts>
           <entry key="ANTLR v4 grammar file" value="33" />
           <entry key="CSS" value="12" />
-          <entry key="JAVA" value="31856" />
+          <entry key="JAVA" value="32752" />
           <entry key="Markdown" value="96" />
           <entry key="PLAIN_TEXT" value="209" />
           <entry key="XML" value="32" />
@@ -147,9 +139,21 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/analyzer/BlockAnalyzer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="228">
+              <caret line="70" column="62" selection-start-line="70" selection-start-column="62" selection-end-line="70" selection-end-column="62" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/analyzer/StatementAnalyzer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="697">
+            <state relative-caret-position="-78">
               <caret line="48" column="74" selection-start-line="48" selection-start-column="74" selection-end-line="48" selection-end-column="74" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -158,11 +162,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/commands/controlled/ForUpToCommand.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/commands/simple/ScanCommand.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="578">
-              <caret line="34" column="5" lean-forward="true" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
+            <state relative-caret-position="279">
+              <caret line="22" column="67" lean-forward="true" selection-start-line="22" selection-start-column="67" selection-end-line="22" selection-end-column="67" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -170,26 +174,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/representations/Value.java">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/commands/EvaluateCommand.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1343">
-              <caret line="90" column="56" selection-start-line="90" selection-start-column="56" selection-end-line="90" selection-end-column="56" />
+            <state relative-caret-position="1683">
+              <caret line="140" selection-start-line="140" selection-end-line="140" />
               <folding>
-                <element signature="e#1675#1676#0" expanded="true" />
-                <element signature="e#1708#1709#0" expanded="true" />
-                <element signature="e#2451#2452#0" expanded="true" />
-                <element signature="e#2527#2528#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/commands/controlled/IControlledCommand.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="26" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -197,8 +189,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Managers/io/OutputManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="33" selection-start-line="33" selection-end-line="33" />
+            <state relative-caret-position="279">
+              <caret line="39" column="43" selection-start-line="39" selection-start-column="43" selection-end-line="39" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -207,58 +199,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/analyzer/VariableAnalyzer.java">
+        <entry file="file://$PROJECT_DIR$/src/ide/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="112" column="8" selection-start-line="112" selection-start-column="8" selection-end-line="118" selection-end-column="9" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/commands/simple/PrintCommand.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="33" selection-start-line="33" selection-end-line="33" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ide/handlers/RunHelper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="42" column="8" selection-start-line="42" selection-start-column="8" selection-end-line="46" selection-end-column="47" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Managers/execution/ExecutionManager.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="680">
-              <caret line="48" column="42" selection-start-line="48" selection-start-column="42" selection-end-line="48" selection-end-column="42" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test_cases/interpreter/forUpTo.unopls">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="2" selection-end-line="5" selection-end-column="2" />
+            <state relative-caret-position="177">
+              <caret line="25" column="41" lean-forward="true" selection-start-line="25" selection-start-column="41" selection-end-line="25" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -320,10 +264,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/analyzer/VariableInitializerContext.java" />
-        <option value="$PROJECT_DIR$/src/analyzer/VariableInitializerAnalyzer.java" />
-        <option value="$PROJECT_DIR$/src/Managers/ExecutionManager/ExecutionManager.java" />
-        <option value="$PROJECT_DIR$/src/Managers/symbolTable/SymbolTableManager.java" />
         <option value="$PROJECT_DIR$/src/ide/Main.java" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/Managers/symbolTable/LocalScope.java" />
@@ -355,22 +295,26 @@
         <option value="$PROJECT_DIR$/src/commands/simple/ReturnCommand.java" />
         <option value="$PROJECT_DIR$/test_cases/interpreter/functions.unopls" />
         <option value="$PROJECT_DIR$/src/commands/evaluation/AssignmentCommand.java" />
-        <option value="$PROJECT_DIR$/src/Managers/symbols/Scope.java" />
         <option value="$PROJECT_DIR$/src/analyzer/VariableAnalyzer.java" />
         <option value="$PROJECT_DIR$/src/analyzer/FunctionDeclarationAnalyzer.java" />
-        <option value="$PROJECT_DIR$/src/commands/EvaluateCommand.java" />
         <option value="$PROJECT_DIR$/src/commands/simple/FunctionCallCommand.java" />
         <option value="$PROJECT_DIR$/src/commands/controlled/WhileCommand.java" />
         <option value="$PROJECT_DIR$/test_cases/interpreter/while.unopls" />
         <option value="$PROJECT_DIR$/src/analyzer/StatementAnalyzer.java" />
         <option value="$PROJECT_DIR$/src/commands/controlled/IControlledCommand.java" />
         <option value="$PROJECT_DIR$/src/Managers/commandControl/CommandControlManager.java" />
-        <option value="$PROJECT_DIR$/src/analyzer/BlockAnalyzer.java" />
         <option value="$PROJECT_DIR$/src/representations/Value.java" />
         <option value="$PROJECT_DIR$/test_cases/interpreter/forUpTo.unopls" />
-        <option value="$PROJECT_DIR$/src/Managers/io/OutputManager.java" />
-        <option value="$PROJECT_DIR$/src/ide/handlers/RunHelper.java" />
         <option value="$PROJECT_DIR$/src/commands/controlled/ForUpToCommand.java" />
+        <option value="$PROJECT_DIR$/src/ide/handlers/RunHelper.java" />
+        <option value="$PROJECT_DIR$/src/Managers/io/InputDialog.java" />
+        <option value="$PROJECT_DIR$/src/analyzer/BlockAnalyzer.java" />
+        <option value="$PROJECT_DIR$/src/commands/EvaluateCommand.java" />
+        <option value="$PROJECT_DIR$/src/ide/inputForm/InputDialog.form" />
+        <option value="$PROJECT_DIR$/src/ide/inputForm/InputDialog.java" />
+        <option value="$PROJECT_DIR$/src/Managers/io/OutputManager.java" />
+        <option value="$PROJECT_DIR$/src/commands/simple/ScanCommand.java" />
+        <option value="$PROJECT_DIR$/src/Managers/symbols/Scope.java" />
       </list>
     </option>
   </component>
@@ -487,13 +431,6 @@
               <item name="UnoPls" type="b2602c69:ProjectViewProjectNode" />
               <item name="UnoPls" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="ide" type="462c0819:PsiDirectoryNode" />
-              <item name="handlers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="UnoPls" type="b2602c69:ProjectViewProjectNode" />
-              <item name="UnoPls" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="Managers" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -570,10 +507,10 @@
     <property name="OverrideImplement.combined" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1612389271945" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1612400603849" />
     <property name="create.test.in.the.same.root" value="true" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/EvalEx-2.4.jar!/" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/openjfx-11.0.2_windows-x64_bin-sdk/javafx-sdk-11.0.2/lib" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -581,18 +518,18 @@
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="analyzer" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="semantics" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\DLSU ARAL\cmpiler\UnoPls\lib" />
       <recent name="D:\DLSU ARAL\cmpiler\UnoPls\src\Managers\symbols" />
       <recent name="D:\DLSU ARAL\cmpiler\UnoPls\src\antlr" />
       <recent name="D:\DLSU ARAL\cmpiler\UnoPls\src\ide" />
       <recent name="D:\DLSU ARAL\cmpiler\UnoPls\test_cases\parser" />
-      <recent name="D:\DLSU ARAL\cmpiler\UnoPls\lib" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="semantics" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="analyzer" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -607,7 +544,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Main">
     <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -622,6 +559,20 @@
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="InputDialog" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ide.inputForm.InputDialog" />
+      <module name="UnoPls" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ide.inputForm.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -677,6 +628,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="Application.InputDialog" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.InputDialog" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -697,7 +657,7 @@
       <workItem from="1611933085460" duration="74695000" />
       <workItem from="1612269554279" duration="29674000" />
       <workItem from="1612352780751" duration="25173000" />
-      <workItem from="1612393466089" duration="343000" />
+      <workItem from="1612393466089" duration="7123000" />
     </task>
     <task id="LOCAL-00001" summary="Initialized files">
       <created>1611866872160</created>
@@ -731,7 +691,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="190904000" />
+    <option name="totallyTimeSpent" value="197684000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -837,41 +797,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/representations/RecognizedKeywords.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="20" column="30" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/representations/PrimitiveType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7">
-          <caret line="4" column="8" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
-          <folding>
-            <element signature="e#263#264#0" expanded="true" />
-            <element signature="e#297#298#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/commands/ICommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="35" selection-start-line="3" selection-start-column="35" selection-end-line="3" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/EvalExFiles/AbstractFunction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1115" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lib/EvalExFiles/AbstractLazyFunction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1122" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Managers/symbols/IScope.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -953,13 +878,6 @@
     <entry file="file://$PROJECT_DIR$/grammar/UnoPlsParser.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-102" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ide/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="27" selection-start-line="27" selection-end-line="27" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/antlr/UnoPlsBaseVisitor.java">
@@ -1061,16 +979,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Managers/symbols/Scope.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="50" column="54" selection-start-line="50" selection-start-column="54" selection-end-line="50" selection-end-column="54" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/analyzer/FunctionDeclarationAnalyzer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -1079,26 +987,6 @@
             <element signature="imports" expanded="true" />
             <element signature="e#708#709#0" expanded="true" />
             <element signature="e#758#759#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/commands/evaluation/AssignmentCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-213">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/commands/EvaluateCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="130" column="143" lean-forward="true" selection-start-line="130" selection-start-column="143" selection-end-line="130" selection-end-column="143" />
-          <folding>
-            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1170,20 +1058,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/analyzer/BlockAnalyzer.java">
+    <entry file="file://$PROJECT_DIR$/src/commands/controlled/ForUpToCommand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="102" column="78" selection-start-line="102" selection-start-column="78" selection-end-line="102" selection-end-column="78" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/analyzer/StatementAnalyzer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="48" column="74" selection-start-line="48" selection-start-column="74" selection-end-line="48" selection-end-column="74" />
+        <state relative-caret-position="578">
+          <caret line="34" column="5" lean-forward="true" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1192,7 +1070,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/representations/Value.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1343">
+        <state relative-caret-position="262">
           <caret line="90" column="56" selection-start-line="90" selection-start-column="56" selection-end-line="90" selection-end-column="56" />
           <folding>
             <element signature="e#1675#1676#0" expanded="true" />
@@ -1210,20 +1088,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Managers/io/OutputManager.java">
+    <entry file="file://$PROJECT_DIR$/src/analyzer/VariableAnalyzer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="33" selection-start-line="33" selection-end-line="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/commands/simple/PrintCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="33" selection-start-line="33" selection-end-line="33" />
+        <state relative-caret-position="262">
+          <caret line="112" column="8" selection-start-line="112" selection-start-column="8" selection-end-line="118" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1232,8 +1100,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ide/handlers/RunHelper.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="42" column="8" selection-start-line="42" selection-start-column="8" selection-end-line="46" selection-end-column="47" />
+        <state relative-caret-position="144">
+          <caret line="49" column="8" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1242,7 +1110,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Managers/execution/ExecutionManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="680">
+        <state relative-caret-position="268">
           <caret line="48" column="42" selection-start-line="48" selection-start-column="42" selection-end-line="48" selection-end-column="42" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1257,20 +1125,122 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/analyzer/VariableAnalyzer.java">
+    <entry file="file://$PROJECT_DIR$/src/commands/simple/PrintCommand.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="112" column="8" selection-start-line="112" selection-start-column="8" selection-end-line="118" selection-end-column="9" />
+        <state relative-caret-position="200">
+          <caret line="20" column="15" selection-start-line="20" selection-start-column="15" selection-end-line="20" selection-end-column="15" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/commands/controlled/ForUpToCommand.java">
+    <entry file="file://$PROJECT_DIR$/src/analyzer/BlockAnalyzer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="34" column="5" lean-forward="true" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
+        <state relative-caret-position="228">
+          <caret line="70" column="62" selection-start-line="70" selection-start-column="62" selection-end-line="70" selection-end-column="62" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ide/inputForm/InputDialog.form">
+      <provider selected="true" editor-type-id="ui-designer" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ide/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="25" column="41" lean-forward="true" selection-start-line="25" selection-start-column="41" selection-end-line="25" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ide/inputForm/InputDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="35" column="21" selection-start-line="35" selection-start-column="21" selection-end-line="35" selection-end-column="21" />
+          <folding>
+            <element signature="e#512#513#0" expanded="true" />
+            <element signature="e#550#551#0" expanded="true" />
+            <element signature="e#761#762#0" expanded="true" />
+            <element signature="e#786#787#0" expanded="true" />
+            <element signature="e#760#761#0" expanded="true" />
+            <element signature="e#792#793#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Managers/io/OutputManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="39" column="43" selection-start-line="39" selection-start-column="43" selection-end-line="39" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/analyzer/StatementAnalyzer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-78">
+          <caret line="48" column="74" selection-start-line="48" selection-start-column="74" selection-end-line="48" selection-end-column="74" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Managers/io/InputDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/commands/simple/ScanCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="279">
+          <caret line="22" column="67" lean-forward="true" selection-start-line="22" selection-start-column="67" selection-end-line="22" selection-end-column="67" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Managers/symbols/Scope.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="47" column="15" lean-forward="true" selection-start-line="47" selection-start-column="15" selection-end-line="47" selection-end-column="15" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_cases/parser/parser.unopls">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="33" column="72" selection-start-line="33" selection-start-column="72" selection-end-line="33" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/commands/evaluation/AssignmentCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/commands/EvaluateCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1683">
+          <caret line="140" selection-start-line="140" selection-end-line="140" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1343,6 +1313,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
+          <last-edited>lib</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
